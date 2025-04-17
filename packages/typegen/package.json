@@ -5,7 +5,7 @@
   "files": [
     "dist"
   ],
-  "main": "typegen.mts",
+  "main": "dist/typegen.mjs",
   "scripts": {
     "build": "tsup"
   },
