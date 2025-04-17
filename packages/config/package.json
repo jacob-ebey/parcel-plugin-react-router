@@ -13,7 +13,13 @@
   "author": "Jacob Ebey",
   "license": "ISC",
   "dependencies": {
-    "@parcel/config-default": "^2.14.4"
+    "@parcel/config-default": "^2.14.4",
+    "parcel-resolver-react-router-experimental": "*",
+    "parcel-resolver-react-router-typegen-experimental": "*"
+  },
+  "devDependencies": {
+    "parcel-resolver-react-router-experimental": "workspace:*",
+    "parcel-resolver-react-router-typegen-experimental": "workspace:*"
   },
   "packageManager": "pnpm@10.8.0",
   "engines": {
