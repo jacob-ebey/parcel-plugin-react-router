@@ -2,6 +2,9 @@
   "name": "parcel-config-react-router-experimental",
   "version": "1.0.0",
   "description": "",
+  "files": [
+    "config.json"
+  ],
   "main": "config.json",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

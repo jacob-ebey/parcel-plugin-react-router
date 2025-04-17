@@ -33,7 +33,8 @@ jobs:
           node-version: 23
       - uses: pnpm/action-setup@v4
         with:
-          run_install: false
+          run_install: true
+      - run: pnpm build
       - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
