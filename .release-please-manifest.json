@@ -1,5 +1,5 @@
 {
-  "packages/config": "0.0.0",
+  "packages/config": "1.0.0",
   "packages/resolver": "0.0.0",
   "packages/typegen": "0.0.0"
 }
