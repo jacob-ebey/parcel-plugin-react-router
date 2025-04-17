@@ -1,6 +1,6 @@
 {
   "name": "parcel-config-react-router-experimental",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "files": [
     "config.json"
@@ -17,8 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "@parcel/config-default": "^2.14.4",
-    "parcel-resolver-react-router-experimental": "*",
-    "parcel-resolver-react-router-typegen-experimental": "*"
+    "parcel-resolver-react-router-experimental": "1.0.1",
+    "parcel-resolver-react-router-typegen-experimental": "1.0.1"
   },
   "devDependencies": {
     "parcel-resolver-react-router-experimental": "workspace:*",
