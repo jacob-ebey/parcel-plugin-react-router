@@ -19,11 +19,11 @@
     "@react-router/dev": "*"
   },
   "dependencies": {
-    "@parcel/plugin": "^2.14.4",
-    "execa": "^9.5.2"
+    "@parcel/plugin": "^2.14.4"
   },
   "devDependencies": {
     "@react-router/dev": "0.0.0-experimental-573acd4d4",
+    "execa": "^9.5.2",
     "react-router": "0.0.0-experimental-573acd4d4",
     "tsup": "^8.4.0"
   },
