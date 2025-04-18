@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.6](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-config-react-router-experimental-v1.0.5...parcel-config-react-router-experimental-v1.0.6) (2025-04-18)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * parcel-resolver-react-router-experimental bumped from 1.0.5 to 1.0.6
+
 ## [1.0.5](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-config-react-router-experimental-v1.0.4...parcel-config-react-router-experimental-v1.0.5) (2025-04-18)
 
 
