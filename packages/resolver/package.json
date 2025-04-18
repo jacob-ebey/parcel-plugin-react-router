@@ -39,13 +39,13 @@
     "oxc-transform": "^0.64.0"
   },
   "devDependencies": {
-    "@react-router/dev": "0.0.0-experimental-0fd8a0272",
+    "@react-router/dev": "0.0.0-experimental-573acd4d4",
     "@types/express": "^5.0.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "0.0.0-experimental-0fd8a0272",
+    "react-router": "0.0.0-experimental-573acd4d4",
     "react-server-dom-parcel": "^19.1.0",
     "tsup": "^8.4.0"
   },

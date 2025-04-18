@@ -1,6 +1,7 @@
 "use server-entry";
 
 import {
+  decodeAction,
   decodeReply,
   loadServerAction,
   renderToReadableStream,
@@ -8,6 +9,7 @@ import {
 } from "react-server-dom-parcel/server.edge";
 import {
   type DecodeCallServerFunction,
+  type DecodeFormActionFunction,
   matchServerRequest,
 } from "react-router/server";
 
@@ -21,13 +23,19 @@ const decodeCallServer: DecodeCallServerFunction = async (actionId, reply) => {
   return action.bind(null, ...args);
 };
 
+const decodeFormAction: DecodeFormActionFunction = async (formData) => {
+  return await decodeAction(formData);
+};
+
 export async function callServer(request: Request) {
   const match = await matchServerRequest({
     decodeCallServer,
+    decodeFormAction,
     request,
     routes,
   });
 
+  console.log(match.payload);
   return new Response(renderToReadableStream(match.payload), {
     status: match.statusCode,
     headers: match.headers,

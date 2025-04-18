@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build"
+    "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build",
+    "watch": "yarn workspace parcel-resolver-react-router-experimental run build --watch & yarn workspace parcel-resolver-react-router-typegen-experimental run build --watch"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",

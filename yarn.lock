@@ -1498,10 +1498,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@react-router/dev@0.0.0-experimental-0fd8a0272":
-  version "0.0.0-experimental-0fd8a0272"
-  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-0fd8a0272.tgz#2f34d21efeb69a8e6903f70324acde8c233f23fe"
-  integrity sha512-wACkcRelYC8ZGMv98EM6HBpaOMt7mslQQMatqPkIAKJm7hl2K9jmq4MucxVuOMKfcP5ks7tFImHfDhyBtHzgwQ==
+"@react-router/dev@0.0.0-experimental-573acd4d4":
+  version "0.0.0-experimental-573acd4d4"
+  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-573acd4d4.tgz#e3e5b4af4c2af67646477aeb3ef0cdd7702c8e77"
+  integrity sha512-KUMUDQI9piLSWN6t9QkNmNihVAuuTDRZs+rwHFyZUlALff+529Dag0EvU8Zlgnlqj4KSK4hj2GufXoVsFvotNg==
   dependencies:
     "@babel/core" "^7.21.8"
     "@babel/generator" "^7.21.5"
@@ -1512,7 +1512,7 @@
     "@babel/traverse" "^7.23.2"
     "@babel/types" "^7.22.5"
     "@npmcli/package-json" "^4.0.1"
-    "@react-router/node" "0.0.0-experimental-0fd8a0272"
+    "@react-router/node" "0.0.0-experimental-573acd4d4"
     arg "^5.0.1"
     babel-dead-code-elimination "^1.0.6"
     chokidar "^4.0.0"
@@ -1531,10 +1531,10 @@
     valibot "^0.41.0"
     vite-node "3.0.0-beta.2"
 
-"@react-router/node@0.0.0-experimental-0fd8a0272":
-  version "0.0.0-experimental-0fd8a0272"
-  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-0fd8a0272.tgz#6cca9c0897d6df38da8756da267108a510b7366c"
-  integrity sha512-7fYScf4OMh8wv9ip2gdpStd4txSMF1CbS30pFrOWt72rYCX6KCADBFYcR9cBnJMU4omYwNoibOrRWpF3Tfas2A==
+"@react-router/node@0.0.0-experimental-573acd4d4":
+  version "0.0.0-experimental-573acd4d4"
+  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-573acd4d4.tgz#bfa18dc085a800a0d87d0eda1c7d5af4364db840"
+  integrity sha512-L+qANXcW8ftPqkx5AJi1I3CAHdlT8FxZQt8K+mN7s4EjmsAJ47AEczrFmgYgaKdNUg7iAHZa/qY6IZC3zBH4TQ==
   dependencies:
     "@mjackson/node-fetch-server" "^0.2.0"
     source-map-support "^0.5.21"
@@ -3669,10 +3669,10 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.2.tgz#3833da01ce32da470f1f936b9d477da5c7028bf9"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
-react-router@0.0.0-experimental-0fd8a0272:
-  version "0.0.0-experimental-0fd8a0272"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-0fd8a0272.tgz#e4efa1a0c90c47aa70a165de994fb2cf9df706d0"
-  integrity sha512-l8n8GC4BcKoY1oTbovpA0DK6NtoSKJhMVDCURH3dHo/5AUtrYIzo8msbmdfV6l0/PWyGkuGVy+06G25EPEIjTg==
+react-router@0.0.0-experimental-573acd4d4:
+  version "0.0.0-experimental-573acd4d4"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-573acd4d4.tgz#01b5afae8dfb6b935bfed29c43c9e03551c84166"
+  integrity sha512-kL2LwyD+t7Do/wNB74Abjcr4A0aFW0dtotzHkFFDswcmfOKdEqyDgZAJ1HRWYW8OIQAejHfQlzPrH9f5XHyGpg==
   dependencies:
     "@types/cookie" "^0.6.0"
     cookie "^1.0.1"

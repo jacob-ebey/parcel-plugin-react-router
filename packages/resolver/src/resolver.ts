@@ -80,10 +80,7 @@ declare module "virtual:react-router/routes" {
       ),
     ]);
 
-    const configPath = path.resolve(
-      options.projectRoot,
-      "react-router.config.ts"
-    );
+    const configPath = path.resolve(process.cwd(), "react-router.config.ts");
 
     config.invalidateOnFileChange(configPath);
     config.invalidateOnFileCreate({
@@ -99,7 +96,7 @@ declare module "virtual:react-router/routes" {
       });
 
     const appDirectory = path.resolve(
-      options.projectRoot,
+      process.cwd(),
       rrConfig.appDirectory || "app"
     );
     const routesPath = path.join(appDirectory, "routes.ts");
