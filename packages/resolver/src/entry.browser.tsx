@@ -5,9 +5,9 @@ import { hydrateRoot } from "react-dom/client";
 import {
   createCallServer,
   getServerStream,
-  ServerBrowserRouter,
+  RSCHydratedRouter,
 } from "react-router";
-import type { ServerPayload } from "react-router/server";
+import type { ServerPayload } from "react-router/rsc";
 import {
   createFromReadableStream,
   encodeReply,
@@ -30,7 +30,7 @@ createFromReadableStream(getServerStream(), { assets: "manifest" }).then(
         React.createElement(
           React.StrictMode,
           null,
-          React.createElement(ServerBrowserRouter, {
+          React.createElement(RSCHydratedRouter, {
             decode: (body) => createFromReadableStream(body),
             payload,
           })

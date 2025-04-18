@@ -8,9 +8,9 @@ export default defineConfig({
   format: ["cjs"],
   async onSuccess() {
     await Promise.all([
-      fsp.copyFile("src/entry.client.tsx", "./dist/entry.client.tsx"),
+      fsp.copyFile("src/entry.browser.tsx", "./dist/entry.browser.tsx"),
       fsp.copyFile("src/entry.rsc.ts", "./dist/entry.rsc.ts"),
-      fsp.copyFile("src/entry.server.tsx", "./dist/entry.server.tsx"),
+      fsp.copyFile("src/entry.ssr.tsx", "./dist/entry.ssr.tsx"),
     ]);
   },
 });

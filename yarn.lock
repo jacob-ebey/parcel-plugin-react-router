@@ -1389,10 +1389,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@react-router/dev@0.0.0-experimental-573acd4d4":
-  version "0.0.0-experimental-573acd4d4"
-  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-573acd4d4.tgz#e3e5b4af4c2af67646477aeb3ef0cdd7702c8e77"
-  integrity sha512-KUMUDQI9piLSWN6t9QkNmNihVAuuTDRZs+rwHFyZUlALff+529Dag0EvU8Zlgnlqj4KSK4hj2GufXoVsFvotNg==
+"@react-router/dev@0.0.0-experimental-3b3f4b74e":
+  version "0.0.0-experimental-3b3f4b74e"
+  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-3b3f4b74e.tgz#98c9718bdd9c0d98e5effaf0a96d29df48d0cb53"
+  integrity sha512-KDjkFyY8yqXDI0ltIZhw0KP9OBrs0zp4AYJbqg4T2LhAbtZPVcbKAT/rYqeYSB/5hM3eOJCbJyx6EvbRwqFAnA==
   dependencies:
     "@babel/core" "^7.21.8"
     "@babel/generator" "^7.21.5"
@@ -1403,7 +1403,7 @@
     "@babel/traverse" "^7.23.2"
     "@babel/types" "^7.22.5"
     "@npmcli/package-json" "^4.0.1"
-    "@react-router/node" "0.0.0-experimental-573acd4d4"
+    "@react-router/node" "0.0.0-experimental-3b3f4b74e"
     arg "^5.0.1"
     babel-dead-code-elimination "^1.0.6"
     chokidar "^4.0.0"
@@ -1422,10 +1422,10 @@
     valibot "^0.41.0"
     vite-node "3.0.0-beta.2"
 
-"@react-router/node@0.0.0-experimental-573acd4d4":
-  version "0.0.0-experimental-573acd4d4"
-  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-573acd4d4.tgz#bfa18dc085a800a0d87d0eda1c7d5af4364db840"
-  integrity sha512-L+qANXcW8ftPqkx5AJi1I3CAHdlT8FxZQt8K+mN7s4EjmsAJ47AEczrFmgYgaKdNUg7iAHZa/qY6IZC3zBH4TQ==
+"@react-router/node@0.0.0-experimental-3b3f4b74e":
+  version "0.0.0-experimental-3b3f4b74e"
+  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-3b3f4b74e.tgz#f741fc45feecc4fa16776a12764fd3f793536c27"
+  integrity sha512-8KEa3aqGvaA3noEW95TA8pM1CB8EqT7pYJZyqv+uKdHCnDRpCW9TDatPC6trLmmg+PQZ1pSCL+1Yc53zfbU/iw==
   dependencies:
     "@mjackson/node-fetch-server" "^0.2.0"
     source-map-support "^0.5.21"
@@ -1696,11 +1696,6 @@
   integrity sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==
   dependencies:
     "@types/node" "*"
-
-"@types/cookie@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.6.0.tgz#eac397f28bf1d6ae0ae081363eca2f425bedf0d5"
-  integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
 
 "@types/estree@1.0.7":
   version "1.0.7"
@@ -3521,12 +3516,11 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.2.tgz#3833da01ce32da470f1f936b9d477da5c7028bf9"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
-react-router@0.0.0-experimental-573acd4d4:
-  version "0.0.0-experimental-573acd4d4"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-573acd4d4.tgz#01b5afae8dfb6b935bfed29c43c9e03551c84166"
-  integrity sha512-kL2LwyD+t7Do/wNB74Abjcr4A0aFW0dtotzHkFFDswcmfOKdEqyDgZAJ1HRWYW8OIQAejHfQlzPrH9f5XHyGpg==
+react-router@0.0.0-experimental-3b3f4b74e:
+  version "0.0.0-experimental-3b3f4b74e"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-3b3f4b74e.tgz#8adae0a09dfe425266cbef3f199c875a8ad28f00"
+  integrity sha512-skeblUYvhRDdjv9m41XzEB+bV86SVoUBYt2aZRMo5oSQDu72gV2ZA2urJoSD6MsLGTSDu8KCSejvOWrISbzfbw==
   dependencies:
-    "@types/cookie" "^0.6.0"
     cookie "^1.0.1"
     set-cookie-parser "^2.6.0"
     turbo-stream "2.4.0"
@@ -3825,16 +3819,8 @@ stream-slice@^0.1.2:
   resolved "https://registry.yarnpkg.com/stream-slice/-/stream-slice-0.1.2.tgz#2dc4f4e1b936fb13f3eb39a2def1932798d07a4b"
   integrity sha512-QzQxpoacatkreL6jsxnVb7X5R/pGw9OUv2qWTYWnmLpg4NdN31snPy/f3TdQE1ZUXaThRvj1Zw4/OGg0ZkaLMA==
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-string-width@^4.1.0:
+"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3852,14 +3838,8 @@ string-width@^5.0.1, string-width@^5.1.2:
     emoji-regex "^9.2.2"
     strip-ansi "^7.0.1"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -4101,9 +4081,9 @@ vite-node@3.0.0-beta.2:
     vite "^5.0.0 || ^6.0.0"
 
 "vite@^5.0.0 || ^6.0.0":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.1.tgz#6b080ff907308ca691c5639c095ab6d938734c0d"
-  integrity sha512-kkzzkqtMESYklo96HKKPE5KKLkC1amlsqt+RjFMlX2AvbRB/0wghap19NdBxxwGZ+h/C6DLCrcEphPIItlGrRQ==
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.2.tgz#4c1bb01b1cea853686a191657bbc14272a038f0a"
+  integrity sha512-ZSvGOXKGceizRQIZSz7TGJ0pS3QLlVY/9hwxVh17W3re67je1RKYzFHivZ/t0tubU78Vkyb9WnHPENSBCzbckg==
   dependencies:
     esbuild "^0.25.0"
     fdir "^6.4.3"

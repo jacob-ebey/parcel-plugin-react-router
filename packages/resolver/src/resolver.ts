@@ -58,7 +58,7 @@ declare module "virtual:react-router/express" {
 }
 
 declare module "virtual:react-router/routes" {
-  import { ServerRouteObject } from "react-router/server";
+  import { ServerRouteObject } from "react-router/rsc";
   const routes: ServerRouteObject[];
   export default routes;
 }`.trim()
@@ -69,16 +69,16 @@ declare module "virtual:react-router/routes" {
     await fsp.mkdir("./.react-router-parcel/entries", { recursive: true });
     await Promise.all([
       fsp.copyFile(
-        path.join(__dirname, "entry.client.tsx"),
-        "./.react-router-parcel/entries/entry.client.tsx"
+        path.join(__dirname, "entry.browser.tsx"),
+        "./.react-router-parcel/entries/entry.browser.tsx"
       ),
       fsp.copyFile(
         path.join(__dirname, "entry.rsc.ts"),
         "./.react-router-parcel/entries/entry.rsc.ts"
       ),
       fsp.copyFile(
-        path.join(__dirname, "entry.server.tsx"),
-        "./.react-router-parcel/entries/entry.server.tsx"
+        path.join(__dirname, "entry.ssr.tsx"),
+        "./.react-router-parcel/entries/entry.ssr.tsx"
       ),
     ]);
 
@@ -124,7 +124,7 @@ declare module "virtual:react-router/routes" {
   },
   async resolve({ config, specifier }) {
     if (specifier === "virtual:react-router/express") {
-      const filePath = path.resolve(__dirname, "./entry.server.tsx");
+      const filePath = path.resolve(__dirname, "./entry.ssr.tsx");
       const code = await fsp.readFile(filePath, "utf-8");
       return {
         filePath,
