@@ -1,3 +1,4 @@
+import * as React from "react";
 import { createRequestListener } from "@mjackson/node-fetch-server";
 import express from "express";
 // @ts-expect-error - no types

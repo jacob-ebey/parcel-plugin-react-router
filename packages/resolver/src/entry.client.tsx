@@ -1,6 +1,6 @@
 "use client-entry";
 
-import { startTransition, StrictMode } from "react";
+import * as React from "react";
 import { hydrateRoot } from "react-dom/client";
 // @ts-expect-error
 import { createFromReadableStream } from "react-server-dom-parcel/client";
@@ -17,15 +17,15 @@ createFromReadableStream(
     },
   }
 ).then((payload: ServerPayload) => {
-  startTransition(() => {
+  React.startTransition(() => {
     hydrateRoot(
       document,
-      <StrictMode>
+      <React.StrictMode>
         <ServerBrowserRouter
           decode={createFromReadableStream}
           payload={payload}
         />
-      </StrictMode>
+      </React.StrictMode>
     );
   });
 });

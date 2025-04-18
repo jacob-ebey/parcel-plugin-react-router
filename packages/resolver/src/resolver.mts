@@ -130,9 +130,7 @@ declare module "virtual:react-router/routes" {
   },
   async resolve({ config, options, specifier }) {
     if (specifier === "virtual:react-router/express") {
-      console.log({ HERE: "HERE" });
       const filePath = fileURLToPath(import.meta.resolve("./entry.server.tsx"));
-      console.log({ filePath });
       const code = await fsp.readFile(filePath, "utf-8");
       return {
         filePath,
