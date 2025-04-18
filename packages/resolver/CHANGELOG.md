@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.8...parcel-resolver-react-router-experimental-v1.0.9) (2025-04-18)
+
+
+### Bug Fixes
+
+* cleanup ssr entry file ([#27](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/27)) ([7c13a91](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/7c13a911c80475a611993bbc340bb5330f1133db))
+
 ## [1.0.8](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.7...parcel-resolver-react-router-experimental-v1.0.8) (2025-04-18)
 
 
