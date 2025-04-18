@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.0.6...parcel-resolver-react-router-typegen-experimental-v1.0.7) (2025-04-18)
+
+
+### Bug Fixes
+
+* one server component, all server component ([b3ef593](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/b3ef593a5ab6a2ecb0d70b89ed552fdc59227859))
+
 ## [1.0.6](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.0.5...parcel-resolver-react-router-typegen-experimental-v1.0.6) (2025-04-18)
 
 
