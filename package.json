@@ -4,7 +4,7 @@
     "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build",
     "watch": "yarn workspace parcel-resolver-react-router-experimental run build --watch & yarn workspace parcel-resolver-react-router-typegen-experimental run build --watch",
     "app:build": "parcel build",
-    "app:clean": "rm -rf dist node_modules .parcel-cache .react-router .react-router-parcel",
+    "app:clean": "rm -rf dist .parcel-cache .react-router .react-router-parcel",
     "app:dev": "parcel",
     "app:start": "node ./dist/server.js"
   },
@@ -33,6 +33,7 @@
     "react-dom": "^19.1.0",
     "react-router": "0.0.0-experimental-573acd4d4",
     "react-server-dom-parcel": "^19.1.0",
+    "server-only": "0.0.1",
     "typescript": "^5.8.3"
   },
   "workspaces": [

@@ -23,8 +23,11 @@ const SERVER_ONLY_ROUTE_EXPORTS = [
   "action",
   "unstable_middleware",
   "headers",
+  "ServerComponent",
 ];
-const SERVER_ONLY_ROUTE_EXPORTS_SET = new Set(SERVER_ONLY_ROUTE_EXPORTS);
+
+const COMPONENT_EXPORTS = ["ErrorBoundary", "HydrateFallback", "Layout"];
+
 const CLIENT_NON_COMPONENT_EXPORTS = [
   "clientAction",
   "clientLoader",
@@ -34,12 +37,11 @@ const CLIENT_NON_COMPONENT_EXPORTS = [
   "links",
   "shouldRevalidate",
 ];
+const CLIENT_NON_COMPONENT_EXPORTS_SET = new Set(CLIENT_NON_COMPONENT_EXPORTS);
 const CLIENT_ROUTE_EXPORTS = [
   ...CLIENT_NON_COMPONENT_EXPORTS,
+  ...COMPONENT_EXPORTS,
   "default",
-  "ErrorBoundary",
-  "HydrateFallback",
-  "Layout",
 ];
 const CLIENT_ROUTE_EXPORTS_SET = new Set(CLIENT_ROUTE_EXPORTS);
 
@@ -89,9 +91,10 @@ declare module "virtual:react-router/routes" {
 
     const rrConfig = await loader
       .import(configPath)
-      .then((mod) => (mod as { default: Config }).default)
+      .then((mod) => {
+        return (mod as { default: Config }).default;
+      })
       .catch((): Config => {
-        console.warn("No react-router.config.ts found, using defaults");
         return {};
       });
 
@@ -108,12 +111,7 @@ declare module "virtual:react-router/routes" {
 
     let routes = await loader
       .import(routesPath)
-      .then((mod) => (mod as { default: RouteConfig }).default)
-      .catch(() => {
-        console.warn("No routes.ts found, using empty routes.");
-        return [];
-      });
-
+      .then((mod) => (mod as { default: RouteConfig }).default);
     routes = [
       {
         id: "root",
@@ -197,8 +195,6 @@ declare module "virtual:react-router/routes" {
       return routeExports;
     };
 
-    // "?client-route-module"
-    // "?server-route-module"
     if (specifier.endsWith("?route-module")) {
       const filePath = path.resolve(
         config.appDirectory,
@@ -207,28 +203,39 @@ declare module "virtual:react-router/routes" {
       const routeSource = await fsp.readFile(filePath, "utf-8");
       const staticExports = await parseExports(filePath, routeSource);
 
+      const isServerFirstRoute = staticExports.some(
+        (staticExport) => staticExport === "ServerComponent"
+      );
+
       let code = "";
-      let componentType: "client" | "server" | undefined;
-      for (const staticExport of staticExports) {
-        if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
-          if (staticExport === "default") {
-            if (componentType)
-              throw new Error(
-                "Can not have both default and ServerComponent exports"
-              );
-            componentType = "client";
+
+      if (isServerFirstRoute) {
+        for (const staticExport of staticExports) {
+          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+            code += `export { ${staticExport} } from ${JSON.stringify(
+              filePath + "?client-route-module"
+            )};\n`;
+          } else if (staticExport === "ServerComponent") {
+            code += `export { ServerComponent as default } from ${JSON.stringify(
+              filePath + "?server-route-module"
+            )};\n`;
+          } else {
+            code += `export { ${staticExport} } from ${JSON.stringify(
+              filePath + "?server-route-module"
+            )};\n`;
           }
-          code += `export { ${staticExport} } from ${JSON.stringify(
-            filePath + "?client-route-module"
-          )};\n`;
-        } else if (staticExport === "ServerComponent") {
-          code += `export { ServerComponent as default } from ${JSON.stringify(
-            filePath + "?server-route-module"
-          )};\n`;
-        } else {
-          code += `export { ${staticExport} } from ${JSON.stringify(
-            filePath + "?server-route-module"
-          )};\n`;
+        }
+      } else {
+        for (const staticExport of staticExports) {
+          if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
+            code += `export { ${staticExport} } from ${JSON.stringify(
+              filePath + "?client-route-module"
+            )};\n`;
+          } else {
+            code += `export { ${staticExport} } from ${JSON.stringify(
+              filePath + "?server-route-module"
+            )};\n`;
+          }
         }
       }
 
@@ -246,6 +253,11 @@ declare module "virtual:react-router/routes" {
       );
 
       const routeSource = await fsp.readFile(filePath, "utf-8");
+      const staticExports = await parseExports(filePath, routeSource);
+
+      const isServerFirstRoute = staticExports.some(
+        (staticExport) => staticExport === "ServerComponent"
+      );
 
       // TODO: Add sourcemaps.....
       // TODO: Maybe pass TSConfig in here?
@@ -253,7 +265,12 @@ declare module "virtual:react-router/routes" {
       const ast = parse(transformed.code, {
         sourceType: "module",
       });
-      removeExports(ast, SERVER_ONLY_ROUTE_EXPORTS);
+
+      const exportsToRemove = isServerFirstRoute
+        ? [...SERVER_ONLY_ROUTE_EXPORTS, ...COMPONENT_EXPORTS]
+        : SERVER_ONLY_ROUTE_EXPORTS;
+
+      removeExports(ast, exportsToRemove);
 
       let code = '"use client";\n' + generate(ast).code;
 
@@ -277,20 +294,29 @@ declare module "virtual:react-router/routes" {
       const routeSource = await fsp.readFile(filePath, "utf-8");
       const staticExports = await parseExports(filePath, routeSource);
 
+      const isServerFirstRoute = staticExports.some(
+        (staticExport) => staticExport === "ServerComponent"
+      );
+
       // TODO: Add sourcemaps.....
       // TODO: Maybe pass TSConfig in here?
       const transformed = oxcTransform.transform(filePath, routeSource);
       const ast = parse(transformed.code, {
         sourceType: "module",
       });
-      removeExports(ast, CLIENT_ROUTE_EXPORTS);
+      removeExports(
+        ast,
+        isServerFirstRoute ? CLIENT_NON_COMPONENT_EXPORTS : CLIENT_ROUTE_EXPORTS
+      );
 
       let code = generate(ast).code;
-      for (const staticExport of staticExports) {
-        if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
-          code += `export { ${staticExport} } from ${JSON.stringify(
-            filePath + "?client-route-module"
-          )};\n`;
+      if (!isServerFirstRoute) {
+        for (const staticExport of staticExports) {
+          if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
+            code += `export { ${staticExport} } from ${JSON.stringify(
+              filePath + "?client-route-module"
+            )};\n`;
+          }
         }
       }
 

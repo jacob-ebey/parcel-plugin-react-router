@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  console.log("Layout");
   return (
     <html lang="en">
       <head>
@@ -27,7 +28,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function Root() {
+export function ServerComponent() {
+  console.log("Root");
   return (
     <>
       <Outlet />
