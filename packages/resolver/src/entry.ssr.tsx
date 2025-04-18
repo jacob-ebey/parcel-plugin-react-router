@@ -1,5 +1,4 @@
 import * as React from "react";
-import { callServer } from "./entry.rsc.ts" assert { env: "react-server" };
 import { createRequestListener } from "@mjackson/node-fetch-server";
 import express from "express";
 // @ts-expect-error - no types
@@ -10,6 +9,8 @@ import {
 } from "react-router" assert { env: "react-client" };
 // @ts-expect-error
 import { createFromReadableStream } from "react-server-dom-parcel/client.edge" assert { env: "react-client" };
+
+import { callServer } from "./entry.rsc.ts" assert { env: "react-server" };
 
 const app = express();
 
