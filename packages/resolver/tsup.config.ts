@@ -3,9 +3,9 @@ import * as fsp from "node:fs/promises";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/resolver.mts"],
+  entry: ["src/resolver.ts"],
   clean: true,
-  format: ["esm"],
+  format: ["cjs"],
   async onSuccess() {
     await Promise.all([
       fsp.copyFile("src/entry.client.tsx", "./dist/entry.client.tsx"),

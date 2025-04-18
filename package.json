@@ -1,13 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "build": "yarn workspaces run build"
+    "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
     "typescript": "^5.8.3"
   },
   "workspaces": [
+    "fixture",
     "packages/*"
   ]
 }

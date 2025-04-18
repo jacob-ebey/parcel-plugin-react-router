@@ -6,9 +6,6 @@
     "config.json"
   ],
   "main": "config.json",
-  "scripts": {
-    "build": "echo noop"
-  },
   "keywords": [
     "react-router",
     "parcel"

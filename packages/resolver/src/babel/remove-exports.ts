@@ -3,8 +3,8 @@ import {
   deadCodeElimination,
 } from "babel-dead-code-elimination";
 
-import type { Babel, NodePath, ParseResult } from "./babel.mts";
-import { traverse } from "./babel.mts";
+import type { Babel, NodePath, ParseResult } from "./babel.ts";
+import { traverse } from "./babel.ts";
 
 export const removeExports = (
   ast: ParseResult<Babel.File>,

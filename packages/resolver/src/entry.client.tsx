@@ -2,11 +2,10 @@
 
 import * as React from "react";
 import { hydrateRoot } from "react-dom/client";
-// @ts-expect-error
-import { createFromReadableStream } from "react-server-dom-parcel/client";
-
 import { getServerStream, ServerBrowserRouter } from "react-router";
 import type { ServerPayload } from "react-router/server";
+// @ts-expect-error
+import { createFromReadableStream } from "react-server-dom-parcel/client";
 
 createFromReadableStream(
   getServerStream(),
@@ -20,12 +19,14 @@ createFromReadableStream(
   React.startTransition(() => {
     hydrateRoot(
       document,
-      <React.StrictMode>
-        <ServerBrowserRouter
-          decode={createFromReadableStream}
-          payload={payload}
-        />
-      </React.StrictMode>
+      React.createElement(
+        React.StrictMode,
+        null,
+        React.createElement(ServerBrowserRouter, {
+          decode: createFromReadableStream,
+          payload,
+        })
+      )
     );
   });
 });

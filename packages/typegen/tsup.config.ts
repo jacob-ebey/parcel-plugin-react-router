@@ -3,7 +3,7 @@ import * as fsp from "node:fs/promises";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/typegen.mts"],
+  entry: ["src/typegen.ts"],
   clean: true,
-  format: ["esm"],
+  format: ["cjs"],
 });

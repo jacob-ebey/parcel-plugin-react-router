@@ -5,7 +5,7 @@
   "files": [
     "dist"
   ],
-  "main": "dist/resolver.mjs",
+  "main": "dist/resolver.js",
   "keywords": [
     "react-router",
     "parcel"

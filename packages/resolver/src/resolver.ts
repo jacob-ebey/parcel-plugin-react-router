@@ -1,6 +1,6 @@
 import * as fsp from "node:fs/promises";
 import * as path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import oxc from "oxc-parser";
 import oxcTransform from "oxc-transform";
@@ -13,10 +13,10 @@ import {
 } from "@react-router/dev/routes";
 import { createJiti } from "jiti";
 
-import { generate, parse } from "./babel/babel.mts";
-import { removeExports } from "./babel/remove-exports.mts";
+import { generate, parse } from "./babel/babel.ts";
+import { removeExports } from "./babel/remove-exports.ts";
 
-const loader = createJiti(import.meta.url);
+const loader = createJiti(pathToFileURL(__filename).href);
 
 const SERVER_ONLY_ROUTE_EXPORTS = [
   "loader",
@@ -64,7 +64,6 @@ declare module "virtual:react-router/routes" {
 
     // These aren't used by the build, but written as an example to copy and paste if
     // the user wants to take over control of the entry points.
-    const __dirname = path.dirname(fileURLToPath(import.meta.url));
     await fsp.mkdir("./.react-router-parcel/entries", { recursive: true });
     await Promise.all([
       fsp.copyFile(
@@ -128,9 +127,9 @@ declare module "virtual:react-router/routes" {
 
     return { appDirectory, routes };
   },
-  async resolve({ config, options, specifier }) {
+  async resolve({ config, specifier }) {
     if (specifier === "virtual:react-router/express") {
-      const filePath = fileURLToPath(import.meta.resolve("./entry.server.tsx"));
+      const filePath = path.resolve(__dirname, "./entry.server.tsx");
       const code = await fsp.readFile(filePath, "utf-8");
       return {
         filePath,
@@ -212,15 +211,27 @@ declare module "virtual:react-router/routes" {
       const staticExports = await parseExports(filePath, routeSource);
 
       let code = "";
+      let componentType: "client" | "server" | undefined;
       for (const staticExport of staticExports) {
-        if (staticExport) {
-          if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(filePath + "?client-route-module")};\n`;
-          } else {
-            code += `export { ${staticExport} } from ${JSON.stringify(filePath + "?server-route-module")};\n`;
+        if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
+          if (staticExport === "default") {
+            if (componentType)
+              throw new Error(
+                "Can not have both default and ServerComponent exports"
+              );
+            componentType = "client";
           }
+          code += `export { ${staticExport} } from ${JSON.stringify(
+            filePath + "?client-route-module"
+          )};\n`;
+        } else if (staticExport === "ServerComponent") {
+          code += `export { ServerComponent as default } from ${JSON.stringify(
+            filePath + "?server-route-module"
+          )};\n`;
         } else {
-          code += `export { default } from ${JSON.stringify(filePath + "?client-route-module")};\n`;
+          code += `export { ${staticExport} } from ${JSON.stringify(
+            filePath + "?server-route-module"
+          )};\n`;
         }
       }
 
@@ -280,7 +291,9 @@ declare module "virtual:react-router/routes" {
       let code = generate(ast).code;
       for (const staticExport of staticExports) {
         if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
-          code += `export { ${staticExport} } from ${JSON.stringify(filePath + "?client-route-module")};\n`;
+          code += `export { ${staticExport} } from ${JSON.stringify(
+            filePath + "?client-route-module"
+          )};\n`;
         }
       }
 
