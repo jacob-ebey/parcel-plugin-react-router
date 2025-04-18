@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.7...parcel-resolver-react-router-experimental-v1.0.8) (2025-04-18)
+
+
+### Bug Fixes
+
+* Update to use the latest RR experimental with updated export names ([#25](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/25)) ([e9d4191](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/e9d41915990fba2b067d5926e0d92b2f4adc5524))
+
 ## [1.0.7](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.6...parcel-resolver-react-router-experimental-v1.0.7) (2025-04-18)
 
 

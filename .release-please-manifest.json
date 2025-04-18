@@ -1,5 +1,5 @@
 {
-  "packages/config": "1.0.8",
-  "packages/resolver": "1.0.7",
-  "packages/typegen": "1.0.7"
+  "packages/config": "1.0.9",
+  "packages/resolver": "1.0.8",
+  "packages/typegen": "1.0.8"
 }
