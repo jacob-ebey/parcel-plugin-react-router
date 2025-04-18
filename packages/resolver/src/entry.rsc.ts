@@ -35,7 +35,6 @@ export async function callServer(request: Request) {
     routes,
   });
 
-  console.log(match.payload);
   return new Response(renderToReadableStream(match.payload), {
     status: match.statusCode,
     headers: match.headers,
