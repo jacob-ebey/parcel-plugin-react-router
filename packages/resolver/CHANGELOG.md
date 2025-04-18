@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.4](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.3...parcel-resolver-react-router-experimental-v1.0.4) (2025-04-18)
+
+
+### Bug Fixes
+
+* publish CJS modules to remove parcel warnings ([#14](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/14)) ([07f2fc0](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/07f2fc0062463cd50ca8b53f34d9e6bf89ddac1a))
+* use React. methods instead of JSX syntax to avoid a React warning ([07f2fc0](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/07f2fc0062463cd50ca8b53f34d9e6bf89ddac1a))
+
 ## [1.0.3](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.2...parcel-resolver-react-router-experimental-v1.0.3) (2025-04-18)
 
 
