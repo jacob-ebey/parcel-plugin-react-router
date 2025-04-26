@@ -22,9 +22,9 @@ app.use(
       request,
       callServer,
       createFromReadableStream,
-      async (payload) => {
+      async (getPayload) => {
         return await renderHTMLToReadableStream(
-          React.createElement(RSCStaticRouter, { payload }),
+          React.createElement(RSCStaticRouter, { getPayload }),
           {
             bootstrapScriptContent: (
               callServer as unknown as { bootstrapScript: string }
