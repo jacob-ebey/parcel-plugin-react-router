@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { log } from "./home.actions.ts";
+import "./home.css";
 
 export function loader({}: Route.LoaderArgs) {
   return "hello, world";
@@ -8,7 +9,7 @@ export function loader({}: Route.LoaderArgs) {
 export function ServerComponent({ loaderData }: Route.ComponentProps) {
   return (
     <main>
-      <h1>Home</h1>
+      <h1 className="home__heading">Home</h1>
       <p>This is the home page.</p>
       <p>loaderData: {loaderData}</p>
       <form action={log}>

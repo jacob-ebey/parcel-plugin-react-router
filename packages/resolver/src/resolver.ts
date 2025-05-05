@@ -229,7 +229,10 @@ declare module "virtual:react-router/routes" {
         for (const staticExport of staticExports) {
           if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
             code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?client-route-module"
+              filePath +
+                (staticExport === "default"
+                  ? "?server-route-module"
+                  : "?client-route-module")
             )};\n`;
           } else {
             code += `export { ${staticExport} } from ${JSON.stringify(
@@ -313,9 +316,21 @@ declare module "virtual:react-router/routes" {
       if (!isServerFirstRoute) {
         for (const staticExport of staticExports) {
           if (CLIENT_ROUTE_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
+            if (staticExport === "default") {
+              // Wrap client component in a server component when it's not a
+              // server-first route so Parcel can use the server component to
+              // inject CSS resources into the JSX
+              code += `import { default as ClientComponent } from ${JSON.stringify(
+                filePath + "?client-route-module"
+              )};\n`;
+              code += `export default function ServerComponent() {
+                return <ClientComponent />;
+              }\n`;
+            } else {
+              code += `export { ${staticExport} } from ${JSON.stringify(
+                filePath + "?client-route-module"
+              )};\n`;
+            }
           }
         }
       }

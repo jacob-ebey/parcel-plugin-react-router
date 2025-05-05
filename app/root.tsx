@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router";
+import "./root.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   console.log("Layout");
@@ -11,6 +12,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <header>
+          <h1 className="root__header">React Router Parcel</h1>
           <nav>
             <ul>
               <li>
