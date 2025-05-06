@@ -325,14 +325,12 @@ declare module "virtual:react-router/routes" {
             // it's not a server-first route so Parcel can use the server
             // component to inject CSS resources into the JSX
             const isDefault = staticExport === "default";
-            const displayName = isDefault ? "Component" : staticExport;
-            const clientName = `Client${displayName}`;
-            const serverName = `Server${displayName}`;
-            code += `import { ${staticExport} as ${clientName} } from ${JSON.stringify(
+            const componentName = isDefault ? "Component" : staticExport;
+            code += `import { ${staticExport} as Client${componentName} } from ${JSON.stringify(
               filePath + "?client-route-module"
             )};\n`;
-            code += `export${isDefault ? " default" : ""} function ${serverName}(props) {
-              return <${clientName} {...props} />;
+            code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}(props) {
+              return <Client${componentName} {...props} />;
             }\n`;
           }
         }
