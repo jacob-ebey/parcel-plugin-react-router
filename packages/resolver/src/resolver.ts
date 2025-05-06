@@ -315,8 +315,8 @@ declare module "virtual:react-router/routes" {
 
       let code = generate(ast).code;
       if (!isServerFirstRoute) {
-        for (const staticExport of staticExports) {         
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) { 
+        for (const staticExport of staticExports) {
+          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
             code += `export { ${staticExport} } from ${JSON.stringify(
               filePath + "?client-route-module"
             )};\n`;
