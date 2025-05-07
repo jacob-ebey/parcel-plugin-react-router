@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.9](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.8...parcel-resolver-react-router-experimental-v1.0.9) (2025-05-07)
+
+
+### Bug Fixes
+
+* adopt generateResponse API in RR to support middleware ([#32](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/32)) ([f1aac26](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f1aac26d0d540d9240e53af2ca5555dc2dabf2c5))
+* cleanup ssr entry file ([#27](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/27)) ([7c13a91](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/7c13a911c80475a611993bbc340bb5330f1133db))
+* surface CSS resources for route components ([#31](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/31)) ([f016c37](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f016c37e89e76c9c89738dafc77cbf02d06ad9f0))
+* update entrypoint to use new deferred decoding API ([#30](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/30)) ([f2c5abc](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f2c5abc53ce3614345c5015876a5db3d0f5f19d2))
+
 ## [1.0.8](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.7...parcel-resolver-react-router-experimental-v1.0.8) (2025-04-18)
 
 

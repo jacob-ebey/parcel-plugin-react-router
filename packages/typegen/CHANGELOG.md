@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.0.8...parcel-resolver-react-router-typegen-experimental-v1.0.9) (2025-05-07)
+
+
+### Bug Fixes
+
+* adopt generateResponse API in RR to support middleware ([#32](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/32)) ([f1aac26](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f1aac26d0d540d9240e53af2ca5555dc2dabf2c5))
+
 ## [1.0.8](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.0.7...parcel-resolver-react-router-typegen-experimental-v1.0.8) (2025-04-18)
 
 
