@@ -27,16 +27,17 @@ const decodeFormAction: DecodeFormActionFunction = async (formData) => {
   return await decodeAction(formData);
 };
 
-export async function callServer(request: Request) {
-  const match = await matchRSCServerRequest({
+export function callServer(request: Request) {
+  return matchRSCServerRequest({
     decodeCallServer,
     decodeFormAction,
     request,
     routes,
-  });
-
-  return new Response(renderToReadableStream(match.payload), {
-    status: match.statusCode,
-    headers: match.headers,
+    generateResponse(match) {
+      return new Response(renderToReadableStream(match.payload), {
+        status: match.statusCode,
+        headers: match.headers,
+      });
+    },
   });
 }
