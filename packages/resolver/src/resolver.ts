@@ -113,9 +113,14 @@ declare module "virtual:react-router/routes" {
       filePath: routesPath,
     });
 
+    global.__reactRouterAppDirectory = appDirectory;
     let routes = await loader
       .import(routesPath)
-      .then((mod) => (mod as { default: RouteConfig }).default);
+      .then(
+        (mod) =>
+          (mod as { default: RouteConfig }).default ?? (mod as RouteConfig)
+      );
+
     routes = [
       {
         id: "root",

@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
-import { log } from "./home.actions.ts";
-import "./home.css";
+import { log } from "./actions.ts";
+import "./styles.css";
 
 export function loader({}: Route.LoaderArgs) {
   return "hello, world";
