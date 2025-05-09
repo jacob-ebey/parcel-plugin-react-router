@@ -86,27 +86,52 @@ declare module "virtual:react-router/routes" {
       ),
     ]);
 
-    const configPath = path.resolve(process.cwd(), "react-router.config.ts");
+    // const configPath = path.resolve(process.cwd(), "react-router.config.ts");
+    const configPath = await findCodeFile(process.cwd(), "react-router.config");
 
-    config.invalidateOnFileChange(configPath);
-    config.invalidateOnFileCreate({
-      filePath: configPath,
-    });
-
-    const rrConfig = await loader
-      .import(configPath)
-      .then((mod) => {
-        return (mod as { default: Config }).default;
-      })
-      .catch((): Config => {
-        return {};
+    if (configPath) {
+      config.invalidateOnFileChange(configPath);
+      config.invalidateOnFileCreate({
+        filePath: configPath,
       });
+    } else {
+      config.invalidateOnFileCreate({
+        filePath: path.join(process.cwd(), "react-router.config.ts"),
+      });
+      config.invalidateOnFileCreate({
+        filePath: path.join(process.cwd(), "react-router.config.tsx"),
+      });
+      config.invalidateOnFileCreate({
+        filePath: path.join(process.cwd(), "react-router.config.js"),
+      });
+      config.invalidateOnFileCreate({
+        filePath: path.join(process.cwd(), "react-router.config.jsx"),
+      });
+    }
+
+    const rrConfig = configPath
+      ? await loader
+          .import(configPath)
+          .then((mod) => {
+            return (mod as { default: Config }).default;
+          })
+          .catch((): Config => {
+            return {};
+          })
+      : ({} satisfies Config);
 
     const appDirectory = path.resolve(
       process.cwd(),
       rrConfig.appDirectory || "app"
     );
-    const routesPath = path.join(appDirectory, "routes.ts");
+    // const routesPath = path.join(appDirectory, "routes.ts");
+    const routesPath = await findCodeFile(appDirectory, "routes");
+
+    if (!routesPath) {
+      throw new Error(
+        `Could not find routes.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`
+      );
+    }
 
     config.invalidateOnFileChange(routesPath);
     config.invalidateOnFileCreate({
@@ -121,15 +146,23 @@ declare module "virtual:react-router/routes" {
           (mod as { default: RouteConfig }).default ?? (mod as RouteConfig)
       );
 
+    const rootFile = await findCodeFile(appDirectory, "root");
+
+    if (!rootFile) {
+      throw new Error(
+        `Could not find root.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`
+      );
+    }
+
     routes = [
       {
         id: "root",
-        file: "root.tsx",
+        file: path.basename(rootFile),
         children: routes,
       },
     ];
 
-    return { appDirectory, routes };
+    return { appDirectory, routes, routesPath };
   },
   async resolve({ config, specifier }) {
     if (specifier === "virtual:react-router/express") {
@@ -183,7 +216,7 @@ declare module "virtual:react-router/routes" {
       code += "];\n";
 
       return {
-        filePath: path.join(config.appDirectory, "routes.ts"),
+        filePath: config.routesPath,
         code,
       };
     }
@@ -357,4 +390,22 @@ declare module "virtual:react-router/routes" {
 
 function createRouteId(file: string) {
   return path.basename(file).slice(0, -path.extname(file).length);
+}
+
+async function findFileWithExtension(
+  dir: string,
+  base: string,
+  extensions: string[]
+) {
+  for (const ext of extensions) {
+    const filePath = path.join(dir, base + ext);
+    if (await fsp.stat(filePath).catch(() => false)) {
+      return filePath;
+    }
+  }
+  return null;
+}
+
+function findCodeFile(dir: string, base: string) {
+  return findFileWithExtension(dir, base, [".ts", ".tsx", ".js", ".jsx"]);
 }
