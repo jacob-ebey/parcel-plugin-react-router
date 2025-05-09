@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.10](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.9...parcel-resolver-react-router-experimental-v1.0.10) (2025-05-09)
+
+
+### Bug Fixes
+
+* make sure `@react-router/fs-routes` works ([#33](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/33)) ([92d86f7](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/92d86f73ef31028560f6d5cc7463b672535aae52))
+* support more file extensions for "root" and "react-router.config" ([#35](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/35)) ([38679d4](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/38679d40e76a97123db31d90068072acf34ff83a))
+
 ## [1.0.9](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.8...parcel-resolver-react-router-experimental-v1.0.9) (2025-05-07)
 
 
