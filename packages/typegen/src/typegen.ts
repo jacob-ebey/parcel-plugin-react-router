@@ -1,10 +1,21 @@
 import { Resolver } from "@parcel/plugin";
-import { $ } from "execa";
+import { $, type ResultPromise } from "execa";
+
+let watchCommand: ResultPromise<{}> | undefined;
 
 export default new Resolver({
   async loadConfig({ options }) {
-    if (options.mode === "development") {
-      $`react-router typegen --watch`;
+    if (!watchCommand && options.mode === "development") {
+      watchCommand = $`react-router typegen --watch`;
+      watchCommand.stdout.pipe(process.stdout);
+      watchCommand.stderr.pipe(process.stderr);
+      watchCommand
+        .catch((reason) => {
+          console.error("Error running typegen", reason);
+        })
+        .finally(() => {
+          watchCommand = undefined;
+        });
     }
   },
   resolve() {
