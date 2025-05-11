@@ -194,7 +194,7 @@ declare module "virtual:react-router/routes" {
           path.resolve(config.appDirectory, route.file) + "?route-module"
         )}),`;
 
-        code += `id: ${JSON.stringify(route.id || createRouteId(route.file))},`;
+        code += `id: ${JSON.stringify(route.id || createRouteId(route.file, config.appDirectory))},`;
         if (typeof route.path === "string") {
           code += `path: ${JSON.stringify(route.path)},`;
         }
@@ -317,12 +317,8 @@ declare module "virtual:react-router/routes" {
       let code = '"use client";\n' + generate(ast).code;
 
       return {
-        filePath: path.join(
-          path.dirname(filePath),
-          path.basename(filePath) +
-            ".___client-route-module___" +
-            path.extname(filePath)
-        ),
+        filePath,
+        query: new URLSearchParams("?client-route-module"),
         code,
         invalidateOnFileChange: [filePath],
       };
@@ -375,12 +371,8 @@ declare module "virtual:react-router/routes" {
       }
 
       return {
-        filePath: path.join(
-          path.dirname(filePath),
-          path.basename(filePath) +
-            ".___server-route-module___" +
-            path.extname(filePath)
-        ),
+        filePath,
+        query: new URLSearchParams("?server-route-module"),
         code,
         invalidateOnFileChange: [filePath],
       };
@@ -388,8 +380,11 @@ declare module "virtual:react-router/routes" {
   },
 });
 
-function createRouteId(file: string) {
-  return path.basename(file).slice(0, -path.extname(file).length);
+function createRouteId(file: string, appDirectory: string) {
+  return path
+    .relative(appDirectory, file)
+    .replace(/\\+/, "/")
+    .slice(0, -path.extname(file).length);
 }
 
 async function findFileWithExtension(
