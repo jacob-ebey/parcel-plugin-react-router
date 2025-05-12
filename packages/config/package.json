@@ -13,11 +13,11 @@
   "author": "Jacob Ebey",
   "license": "ISC",
   "dependencies": {
-    "@parcel/config-default": "^2.14.4",
+    "@parcel/config-default": "^2.15.0",
     "parcel-resolver-react-router-experimental": "1.0.10",
     "parcel-resolver-react-router-typegen-experimental": "1.0.10"
   },
   "engines": {
-    "parcel": "2.x"
+    "parcel": ">=2.15.0"
   }
 }

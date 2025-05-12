@@ -19,7 +19,7 @@
     "@react-router/dev": "*"
   },
   "dependencies": {
-    "@parcel/plugin": "^2.14.4"
+    "@parcel/plugin": "^2.15.0"
   },
   "devDependencies": {
     "@react-router/dev": "0.0.0-experimental-e988dc602",
@@ -28,6 +28,6 @@
     "tsup": "^8.4.0"
   },
   "engines": {
-    "parcel": "2.x"
+    "parcel": ">=2.15.0"
   }
 }
