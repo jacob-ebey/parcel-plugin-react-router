@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.10...parcel-resolver-react-router-experimental-v1.0.11) (2025-05-12)
+
+
+### Bug Fixes
+
+* bump parcel to 2.15.0 ([#38](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/38)) ([74e6561](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/74e6561c87bac1bdbc314f32c80cbba0207cda09))
+
 ## [1.0.10](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.9...parcel-resolver-react-router-experimental-v1.0.10) (2025-05-11)
 
 
