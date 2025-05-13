@@ -1418,10 +1418,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@react-router/dev@0.0.0-experimental-e988dc602":
-  version "0.0.0-experimental-e988dc602"
-  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-e988dc602.tgz#53977a1918aef30e390efca355e3d94cda0bef28"
-  integrity sha512-Ah4x6tawjlJIwWF+XqNk4GilwK//IMp1VHEQ6f8H/M/cgaUETWZRk1wgWmk/vBk2lpjveTDG25jx9YEwf8B85w==
+"@react-router/dev@0.0.0-experimental-28626d62e":
+  version "0.0.0-experimental-28626d62e"
+  resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-0.0.0-experimental-28626d62e.tgz#b58b7b47dac218d7fe3ddcc44bb2009fd3d25944"
+  integrity sha512-0BfbhIz5QydR/8qNAn4KmhcL0/pRh4W/qUsG73OLLHXbngZLPTOFPNWUfDtB1HZFT3xMT5qrmkOEj/lB8/RbLA==
   dependencies:
     "@babel/core" "^7.21.8"
     "@babel/generator" "^7.21.5"
@@ -1432,7 +1432,7 @@
     "@babel/traverse" "^7.23.2"
     "@babel/types" "^7.22.5"
     "@npmcli/package-json" "^4.0.1"
-    "@react-router/node" "0.0.0-experimental-e988dc602"
+    "@react-router/node" "0.0.0-experimental-28626d62e"
     arg "^5.0.1"
     babel-dead-code-elimination "^1.0.6"
     chokidar "^4.0.0"
@@ -1451,17 +1451,17 @@
     valibot "^0.41.0"
     vite-node "3.0.0-beta.2"
 
-"@react-router/fs-routes@0.0.0-experimental-e988dc602":
-  version "0.0.0-experimental-e988dc602"
-  resolved "https://registry.yarnpkg.com/@react-router/fs-routes/-/fs-routes-0.0.0-experimental-e988dc602.tgz#086bd8afb0f121a8cb0851e8f1c9691b04655559"
-  integrity sha512-9ii5E71cOz0+Er4qTwC3Yei1sidmq2USBsa/RdxCcTXygsc2K++Guw17wObYy25J5gbKamgrvnUk4xKeOKd6ZA==
+"@react-router/fs-routes@0.0.0-experimental-28626d62e":
+  version "0.0.0-experimental-28626d62e"
+  resolved "https://registry.yarnpkg.com/@react-router/fs-routes/-/fs-routes-0.0.0-experimental-28626d62e.tgz#75a2a38cf6f2e0e95c19eedb997293b210f3903d"
+  integrity sha512-o/v6DFUEPD2pTUFSbDmKIbSQ6WllCPlvzfRIPJDJyHMMgiv1MditJRmpxIJR6zjehkx03pMxOI85meAaPHGnzw==
   dependencies:
     minimatch "^9.0.0"
 
-"@react-router/node@0.0.0-experimental-e988dc602":
-  version "0.0.0-experimental-e988dc602"
-  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-e988dc602.tgz#715050226660dd1fd6bb7cc32aab104078539d81"
-  integrity sha512-NHh8ZkxLuwmKxEwG3eAbenh7evM5WRXyYasnCUYTupMs7MWuGX4L2/oiMGIpSZIQmcSKWQGP100spo6gZVq4aQ==
+"@react-router/node@0.0.0-experimental-28626d62e":
+  version "0.0.0-experimental-28626d62e"
+  resolved "https://registry.yarnpkg.com/@react-router/node/-/node-0.0.0-experimental-28626d62e.tgz#0522f09581f229739e068026ad6549829245876a"
+  integrity sha512-wXvwBfny3vTqq1au7Es3EN4pBYX7XBuB+TUd00jMIr3Sj1/3/+Rz5ND8G+gvbWQpAE7NoO0aF0NgZYnDpbNrNQ==
   dependencies:
     "@mjackson/node-fetch-server" "^0.2.0"
     source-map-support "^0.5.21"
@@ -3365,14 +3365,13 @@ react-refresh@^0.16.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.16.0.tgz#e7d45625f05c9709466d09348a25d22f79b2ad23"
   integrity sha512-FPvF2XxTSikpJxcr+bHut2H4gJ17+18Uy20D5/F+SKzFap62R3cM5wH6b8WN3LyGSYeQilLEcJcR1fjBSI2S1A==
 
-react-router@0.0.0-experimental-e988dc602:
-  version "0.0.0-experimental-e988dc602"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-e988dc602.tgz#decd0ac390c82a7d1f90281c9be931e48d4d9afe"
-  integrity sha512-zxHoh9Kfz4yqCq32KXIw7NZ+Zlq+YWlnvOw+FJ+A1EnvE5PgT0MeUUuWq/9/LcuxBQ/Lmtt7hz3C0DHFGrmnKg==
+react-router@0.0.0-experimental-28626d62e:
+  version "0.0.0-experimental-28626d62e"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-28626d62e.tgz#7b89d8525d323ac88578d66a38dc3d4be418f659"
+  integrity sha512-s3PX3apVrg86b9cgASiPjN4IlAyEjLw/VdvoqgyrCCM4mFY8AhRy5KiUuJMxoecJOrFMjtOHeqwzGgDgsNcP3A==
   dependencies:
     cookie "^1.0.1"
     set-cookie-parser "^2.6.0"
-    turbo-stream "2.4.0"
 
 react-server-dom-parcel@^19.1.0:
   version "19.1.0"
@@ -3658,16 +3657,7 @@ stream-slice@^0.1.2:
   resolved "https://registry.yarnpkg.com/stream-slice/-/stream-slice-0.1.2.tgz#2dc4f4e1b936fb13f3eb39a2def1932798d07a4b"
   integrity sha512-QzQxpoacatkreL6jsxnVb7X5R/pGw9OUv2qWTYWnmLpg4NdN31snPy/f3TdQE1ZUXaThRvj1Zw4/OGg0ZkaLMA==
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-string-width@^4.1.0:
+"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3685,14 +3675,7 @@ string-width@^5.0.1, string-width@^5.1.2:
     emoji-regex "^9.2.2"
     strip-ansi "^7.0.1"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -3818,11 +3801,6 @@ tsup@^8.4.0:
     tinyexec "^0.3.2"
     tinyglobby "^0.2.11"
     tree-kill "^1.2.2"
-
-turbo-stream@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/turbo-stream/-/turbo-stream-2.4.0.tgz#1e4fca6725e90fa14ac4adb782f2d3759a5695f0"
-  integrity sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==
 
 type-fest@^0.20.2:
   version "0.20.2"
