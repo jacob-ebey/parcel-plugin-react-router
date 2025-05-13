@@ -221,6 +221,43 @@ declare module "virtual:react-router/routes" {
       };
     }
 
+    if (specifier === "virtual:react-router/client-route-component-props") {
+      const filePath = path.resolve(__dirname, "./empty.ts");
+      const code = `
+import {
+  useLoaderData,
+  useActionData,
+  useParams,
+  useMatches,
+  useRouteError
+} from "react-router";
+
+export const useComponentProps = () => ({
+  loaderData: useLoaderData(),
+  actionData: useActionData(),
+  params: useParams(),
+  matches: useMatches(),
+});
+
+export const useHydrateFallbackProps = () => ({
+  loaderData: useLoaderData(),
+  actionData: useActionData(),
+  params: useParams(),
+});
+
+export const useErrorBoundaryProps = () => ({
+  loaderData: useLoaderData(),
+  actionData: useActionData(),
+  params: useParams(),
+  error: useRouteError(),
+});
+`.trim()
+      return {
+        filePath,
+        code
+      }
+    }
+
     const parseExports = async (filePath: string, source: string) => {
       const parsed = await oxc.parseAsync(filePath, source);
 
@@ -301,6 +338,47 @@ declare module "virtual:react-router/routes" {
         (staticExport) => staticExport === "ServerComponent"
       );
 
+      let code = '"use client";';
+      for (const staticExport of staticExports) {
+        if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
+          const isDefault = staticExport === "default";
+          const componentName = isDefault ? "Component" : staticExport;
+          code += `import { use${componentName}Props } from "virtual:react-router/client-route-component-props";\n`;
+          code += `import { ${staticExport} as Source${componentName} } from ${JSON.stringify(
+            filePath + "?client-route-module-source"
+          )};\n`;
+          
+          code += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
+            return <Source${componentName} {...use${componentName}Props()} />;
+          }\n`;
+        } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+          code += `export { ${staticExport} } from ${JSON.stringify(
+            filePath + "?client-route-module-source"
+          )};\n`;
+        }
+      }
+
+      return {
+        filePath,
+        query: new URLSearchParams("?client-route-module"),
+        code,
+        invalidateOnFileChange: [filePath],
+      }      
+    }
+
+    if (specifier.endsWith("?client-route-module-source")) {
+      const filePath = path.resolve(
+        config.appDirectory,
+        specifier.slice(0, -"?client-route-module-source".length)
+      );
+
+      const routeSource = await fsp.readFile(filePath, "utf-8");
+      const staticExports = await parseExports(filePath, routeSource);
+
+      const isServerFirstRoute = staticExports.some(
+        (staticExport) => staticExport === "ServerComponent"
+      );
+
       // TODO: Add sourcemaps.....
       // TODO: Maybe pass TSConfig in here?
       const transformed = oxcTransform.transform(filePath, routeSource);
@@ -318,7 +396,7 @@ declare module "virtual:react-router/routes" {
 
       return {
         filePath,
-        query: new URLSearchParams("?client-route-module"),
+        query: new URLSearchParams("?client-route-module-source"),
         code,
         invalidateOnFileChange: [filePath],
       };
@@ -363,8 +441,8 @@ declare module "virtual:react-router/routes" {
             code += `import { ${staticExport} as Client${componentName} } from ${JSON.stringify(
               filePath + "?client-route-module"
             )};\n`;
-            code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}(props) {
-              return <Client${componentName} {...props} />;
+            code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
+              return <Client${componentName} />;
             }\n`;
           }
         }

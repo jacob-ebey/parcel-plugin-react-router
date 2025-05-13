@@ -11,6 +11,7 @@ export default defineConfig({
       fsp.copyFile("src/entry.browser.tsx", "./dist/entry.browser.tsx"),
       fsp.copyFile("src/entry.rsc.ts", "./dist/entry.rsc.ts"),
       fsp.copyFile("src/entry.ssr.tsx", "./dist/entry.ssr.tsx"),
+      fsp.copyFile("src/empty.ts", "./dist/empty.ts"),
     ]);
   },
 });
