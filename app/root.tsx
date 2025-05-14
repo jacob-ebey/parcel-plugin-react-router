@@ -19,7 +19,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/server-loader">Server loader</Link>
+              </li>
+              <li>
+                <Link to="/client-loader">Client loader</Link>
+              </li>
+              <li>
+                <Link to="/client-loader-hydrate">Client loader hydrate</Link>
+              </li>
+              <li>
+                <Link to="/client-loader-without-server-loader">Client loader without server loader</Link>
               </li>
             </ul>
           </nav>
