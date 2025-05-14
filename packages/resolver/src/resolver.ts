@@ -221,43 +221,6 @@ declare module "virtual:react-router/routes" {
       };
     }
 
-    if (specifier === "virtual:react-router/client-route-component-props") {
-      const filePath = path.resolve(__dirname, "./empty.ts");
-      const code = `
-import {
-  useLoaderData,
-  useActionData,
-  useParams,
-  useMatches,
-  useRouteError
-} from "react-router";
-
-export const useComponentProps = () => ({
-  loaderData: useLoaderData(),
-  actionData: useActionData(),
-  params: useParams(),
-  matches: useMatches(),
-});
-
-export const useHydrateFallbackProps = () => ({
-  loaderData: useLoaderData(),
-  actionData: useActionData(),
-  params: useParams(),
-});
-
-export const useErrorBoundaryProps = () => ({
-  loaderData: useLoaderData(),
-  actionData: useActionData(),
-  params: useParams(),
-  error: useRouteError(),
-});
-`.trim()
-      return {
-        filePath,
-        code
-      }
-    }
-
     const parseExports = async (filePath: string, source: string) => {
       const parsed = await oxc.parseAsync(filePath, source);
 
@@ -343,7 +306,7 @@ export const useErrorBoundaryProps = () => ({
         if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
-          code += `import { use${componentName}Props } from "virtual:react-router/client-route-component-props";\n`;
+          code += `import { use${componentName}Props } from "parcel-resolver-react-router-experimental/dist/client-route-component-props.js";\n`;
           code += `import { ${staticExport} as Source${componentName} } from ${JSON.stringify(
             filePath + "?client-route-module-source"
           )};\n`;
