@@ -310,7 +310,7 @@ declare module "virtual:react-router/routes" {
           code += `import { ${staticExport} as Source${componentName} } from ${JSON.stringify(
             filePath + "?client-route-module-source"
           )};\n`;
-          
+
           code += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
             return <Source${componentName} {...use${componentName}Props()} />;
           }\n`;
@@ -326,7 +326,7 @@ declare module "virtual:react-router/routes" {
         query: new URLSearchParams("?client-route-module"),
         code,
         invalidateOnFileChange: [filePath],
-      }      
+      };
     }
 
     if (specifier.endsWith("?client-route-module-source")) {
@@ -389,25 +389,29 @@ declare module "virtual:react-router/routes" {
       );
 
       let code = generate(ast).code;
-      if (!isServerFirstRoute) {
-        for (const staticExport of staticExports) {
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(
+
+      for (const staticExport of staticExports) {
+        if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+          code =
+            `import { ${staticExport} } from ${JSON.stringify(
               filePath + "?client-route-module"
-            )};\n`;
-          } else if (COMPONENT_EXPORTS_SET.has(staticExport)) {
-            // Wrap all route-level client components in server components when
-            // it's not a server-first route so Parcel can use the server
-            // component to inject CSS resources into the JSX
-            const isDefault = staticExport === "default";
-            const componentName = isDefault ? "Component" : staticExport;
-            code += `import { ${staticExport} as Client${componentName} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
-            code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
+            )};\n` + code;
+          code += `export { ${staticExport} };\n`;
+        } else if (
+          !isServerFirstRoute &&
+          COMPONENT_EXPORTS_SET.has(staticExport)
+        ) {
+          // Wrap all route-level client components in server components when
+          // it's not a server-first route so Parcel can use the server
+          // component to inject CSS resources into the JSX
+          const isDefault = staticExport === "default";
+          const componentName = isDefault ? "Component" : staticExport;
+          code += `import { ${staticExport} as Client${componentName} } from ${JSON.stringify(
+            filePath + "?client-route-module"
+          )};\n`;
+          code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
               return <Client${componentName} />;
             }\n`;
-          }
         }
       }
 
