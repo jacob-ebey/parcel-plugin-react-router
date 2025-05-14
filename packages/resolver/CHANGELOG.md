@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.13](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.12...parcel-resolver-react-router-experimental-v1.0.13) (2025-05-14)
+
+
+### Bug Fixes
+
+* Add empty path to root route for 404 matching ([#48](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/48)) ([2787b2f](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/2787b2fc0a505263eca03fbde0167ef3b9eb2287))
+* remove-virtual module for component props in favor of real module ([#45](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/45)) ([c0d719d](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/c0d719d30b00b7cf046371eb903246b8d03ce995))
+
 ## [1.0.12](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.11...parcel-resolver-react-router-experimental-v1.0.12) (2025-05-13)
 
 
