@@ -157,6 +157,7 @@ declare module "virtual:react-router/routes" {
     routes = [
       {
         id: "root",
+        path: "",
         file: path.basename(rootFile),
         children: routes,
       },
@@ -310,7 +311,7 @@ declare module "virtual:react-router/routes" {
           code += `import { ${staticExport} as Source${componentName} } from ${JSON.stringify(
             filePath + "?client-route-module-source"
           )};\n`;
-          
+
           code += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
             return <Source${componentName} {...use${componentName}Props()} />;
           }\n`;
@@ -326,7 +327,7 @@ declare module "virtual:react-router/routes" {
         query: new URLSearchParams("?client-route-module"),
         code,
         invalidateOnFileChange: [filePath],
-      }      
+      };
     }
 
     if (specifier.endsWith("?client-route-module-source")) {
