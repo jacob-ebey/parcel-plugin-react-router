@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build",
-    "watch": "yarn workspace parcel-resolver-react-router-experimental run build --watch & yarn workspace parcel-resolver-react-router-typegen-experimental run build --watch",
+    "watch": "yarn workspace parcel-resolver-react-router-experimental run build --watch & yarn workspace parcel-transformer-react-router-experimental run build --watch & yarn workspace parcel-resolver-react-router-typegen-experimental run build --watch",
     "app:build": "parcel build",
     "app:clean": "rm -rf dist .parcel-cache .react-router .react-router-parcel",
     "app:dev": "parcel",

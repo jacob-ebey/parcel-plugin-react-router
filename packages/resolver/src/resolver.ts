@@ -1,9 +1,6 @@
 import * as fsp from "node:fs/promises";
 import * as path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
-
-import oxc from "oxc-parser";
-import oxcTransform from "oxc-transform";
+import { pathToFileURL } from "node:url";
 
 import { Resolver } from "@parcel/plugin";
 import type { Config } from "@react-router/dev/config";
@@ -13,44 +10,10 @@ import {
 } from "@react-router/dev/routes";
 import { createJiti } from "jiti";
 
-import { generate, parse } from "./babel/babel.ts";
-import { removeExports } from "./babel/remove-exports.ts";
-
 const loader = createJiti(pathToFileURL(__filename).href);
 
-const SERVER_ONLY_ROUTE_EXPORTS = [
-  "loader",
-  "action",
-  "unstable_middleware",
-  "headers",
-  "ServerComponent",
-];
-
-const COMPONENT_EXPORTS = [
-  "default",
-  "ErrorBoundary",
-  "HydrateFallback",
-  "Layout",
-];
-const COMPONENT_EXPORTS_SET = new Set(COMPONENT_EXPORTS);
-
-const CLIENT_NON_COMPONENT_EXPORTS = [
-  "clientAction",
-  "clientLoader",
-  "unstable_clientMiddleware",
-  "handle",
-  "meta",
-  "links",
-  "shouldRevalidate",
-];
-const CLIENT_NON_COMPONENT_EXPORTS_SET = new Set(CLIENT_NON_COMPONENT_EXPORTS);
-const CLIENT_ROUTE_EXPORTS = [
-  ...CLIENT_NON_COMPONENT_EXPORTS,
-  ...COMPONENT_EXPORTS,
-];
-
 export default new Resolver({
-  async loadConfig({ config, options }) {
+  async loadConfig({ config }) {
     await fsp.mkdir(".react-router-parcel/types", { recursive: true });
     await fsp.writeFile(
       ".react-router-parcel/types/+virtual-parcel.d.ts",
@@ -165,7 +128,7 @@ declare module "virtual:react-router/routes" {
 
     return { appDirectory, routes, routesPath };
   },
-  async resolve({ config, specifier }) {
+  async resolve({ config, specifier, options }) {
     if (specifier === "virtual:react-router/express") {
       const filePath = path.resolve(__dirname, "./entry.ssr.tsx");
       const code = await fsp.readFile(filePath, "utf-8");
@@ -192,7 +155,7 @@ declare module "virtual:react-router/routes" {
 
         code += "{";
         code += `lazy: () => import(${JSON.stringify(
-          path.resolve(config.appDirectory, route.file) + "?route-module"
+          "route-module:/" + path.relative(options.projectRoot, path.resolve(config.appDirectory, route.file))
         )}),`;
 
         code += `id: ${JSON.stringify(route.id || createRouteId(route.file, config.appDirectory))},`;
@@ -219,204 +182,6 @@ declare module "virtual:react-router/routes" {
       return {
         filePath: config.routesPath,
         code,
-      };
-    }
-
-    const parseExports = async (filePath: string, source: string) => {
-      const parsed = await oxc.parseAsync(filePath, source);
-
-      const routeExports: string[] = [];
-      for (const staticExport of parsed.module.staticExports) {
-        for (const entry of staticExport.entries) {
-          if (entry.exportName.name) {
-            routeExports.push(entry.exportName.name);
-          } else {
-            routeExports.push("default");
-          }
-        }
-      }
-      return routeExports;
-    };
-
-    if (specifier.endsWith("?route-module")) {
-      const filePath = path.resolve(
-        config.appDirectory,
-        specifier.slice(0, -"?route-module".length)
-      );
-      const routeSource = await fsp.readFile(filePath, "utf-8");
-      const staticExports = await parseExports(filePath, routeSource);
-
-      const isServerFirstRoute = staticExports.some(
-        (staticExport) => staticExport === "ServerComponent"
-      );
-
-      let code = "";
-
-      if (isServerFirstRoute) {
-        for (const staticExport of staticExports) {
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
-          } else if (staticExport === "ServerComponent") {
-            code += `export { ServerComponent as default } from ${JSON.stringify(
-              filePath + "?server-route-module"
-            )};\n`;
-          } else {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?server-route-module"
-            )};\n`;
-          }
-        }
-      } else {
-        for (const staticExport of staticExports) {
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
-          } else {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?server-route-module"
-            )};\n`;
-          }
-        }
-      }
-
-      return {
-        filePath,
-        code,
-        invalidateOnFileChange: [filePath],
-      };
-    }
-
-    if (specifier.endsWith("?client-route-module")) {
-      const filePath = path.resolve(
-        config.appDirectory,
-        specifier.slice(0, -"?client-route-module".length)
-      );
-
-      const routeSource = await fsp.readFile(filePath, "utf-8");
-      const staticExports = await parseExports(filePath, routeSource);
-
-      const isServerFirstRoute = staticExports.some(
-        (staticExport) => staticExport === "ServerComponent"
-      );
-
-      let code = '"use client";';
-      for (const staticExport of staticExports) {
-        if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
-          const isDefault = staticExport === "default";
-          const componentName = isDefault ? "Component" : staticExport;
-          code += `import { use${componentName}Props } from "parcel-resolver-react-router-experimental/dist/client-route-component-props.js";\n`;
-          code += `import { ${staticExport} as Source${componentName} } from ${JSON.stringify(
-            filePath + "?client-route-module-source"
-          )};\n`;
-
-          code += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
-            return <Source${componentName} {...use${componentName}Props()} />;
-          }\n`;
-        } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-          code += `export { ${staticExport} } from ${JSON.stringify(
-            filePath + "?client-route-module-source"
-          )};\n`;
-        }
-      }
-
-      return {
-        filePath,
-        query: new URLSearchParams("?client-route-module"),
-        code,
-        invalidateOnFileChange: [filePath],
-      };
-    }
-
-    if (specifier.endsWith("?client-route-module-source")) {
-      const filePath = path.resolve(
-        config.appDirectory,
-        specifier.slice(0, -"?client-route-module-source".length)
-      );
-
-      const routeSource = await fsp.readFile(filePath, "utf-8");
-      const staticExports = await parseExports(filePath, routeSource);
-
-      const isServerFirstRoute = staticExports.some(
-        (staticExport) => staticExport === "ServerComponent"
-      );
-
-      // TODO: Add sourcemaps.....
-      // TODO: Maybe pass TSConfig in here?
-      const transformed = oxcTransform.transform(filePath, routeSource);
-      const ast = parse(transformed.code, {
-        sourceType: "module",
-      });
-
-      const exportsToRemove = isServerFirstRoute
-        ? [...SERVER_ONLY_ROUTE_EXPORTS, ...COMPONENT_EXPORTS]
-        : SERVER_ONLY_ROUTE_EXPORTS;
-
-      removeExports(ast, exportsToRemove);
-
-      let code = '"use client";\n' + generate(ast).code;
-
-      return {
-        filePath,
-        query: new URLSearchParams("?client-route-module-source"),
-        code,
-        invalidateOnFileChange: [filePath],
-      };
-    }
-
-    if (specifier.endsWith("?server-route-module")) {
-      const filePath = path.resolve(
-        config.appDirectory,
-        specifier.slice(0, -"?server-route-module".length)
-      );
-      const routeSource = await fsp.readFile(filePath, "utf-8");
-      const staticExports = await parseExports(filePath, routeSource);
-
-      const isServerFirstRoute = staticExports.some(
-        (staticExport) => staticExport === "ServerComponent"
-      );
-
-      // TODO: Add sourcemaps.....
-      // TODO: Maybe pass TSConfig in here?
-      const transformed = oxcTransform.transform(filePath, routeSource);
-      const ast = parse(transformed.code, {
-        sourceType: "module",
-      });
-      removeExports(
-        ast,
-        isServerFirstRoute ? CLIENT_NON_COMPONENT_EXPORTS : CLIENT_ROUTE_EXPORTS
-      );
-
-      let code = generate(ast).code;
-      if (!isServerFirstRoute) {
-        for (const staticExport of staticExports) {
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-            code += `export { ${staticExport} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
-          } else if (COMPONENT_EXPORTS_SET.has(staticExport)) {
-            // Wrap all route-level client components in server components when
-            // it's not a server-first route so Parcel can use the server
-            // component to inject CSS resources into the JSX
-            const isDefault = staticExport === "default";
-            const componentName = isDefault ? "Component" : staticExport;
-            code += `import { ${staticExport} as Client${componentName} } from ${JSON.stringify(
-              filePath + "?client-route-module"
-            )};\n`;
-            code += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
-              return <Client${componentName} />;
-            }\n`;
-          }
-        }
-      }
-
-      return {
-        filePath,
-        query: new URLSearchParams("?server-route-module"),
-        code,
-        invalidateOnFileChange: [filePath],
       };
     }
   },

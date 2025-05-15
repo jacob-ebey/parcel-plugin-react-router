@@ -3,7 +3,7 @@ import * as fsp from "node:fs/promises";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/client-route-component-props.ts", "src/resolver.ts"],
+  entry: ["src/resolver.ts"],
   clean: true,
   format: ["cjs"],
   async onSuccess() {

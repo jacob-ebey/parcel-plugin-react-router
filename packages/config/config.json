@@ -4,5 +4,8 @@
     "parcel-resolver-react-router-experimental",
     "parcel-resolver-react-router-typegen-experimental",
     "..."
-  ]
+  ],
+  "transformers": {
+    "route-module:*": ["parcel-transformer-react-router-experimental", "..."]
+  }
 }
