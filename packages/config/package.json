@@ -15,7 +15,8 @@
   "dependencies": {
     "@parcel/config-default": "^2.15.0",
     "parcel-resolver-react-router-experimental": "1.0.13",
-    "parcel-resolver-react-router-typegen-experimental": "1.0.12"
+    "parcel-resolver-react-router-typegen-experimental": "1.0.12",
+    "parcel-transformer-react-router-experimental": "1.0.13"
   },
   "engines": {
     "parcel": ">=2.15.0"
