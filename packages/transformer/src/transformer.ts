@@ -55,6 +55,8 @@ const parseExports = async (filePath: string, source: string) => {
 
 export default new Transformer({
   async transform({ asset }) {
+    const assets: Array<TransformerResult | MutableAsset> = [asset];
+
     const routeSource = await asset.getCode();
     const staticExports = await parseExports(asset.filePath, routeSource);
     const isServerFirstRoute = staticExports.some(
@@ -67,42 +69,44 @@ export default new Transformer({
     const ast = babel.parse(transformed.code, {
       sourceType: "module",
     });
+        
+    function getClientModuleId(): string {
+      const id = 'client-route-module';
 
-    let assets: Array<TransformerResult | MutableAsset> = [asset];
-
-    function createClientRouteModule() {
-      if (assets.some(a => a.uniqueKey === 'client-route-module')) {
-        return;
+      if (assets.some(a => a.uniqueKey === id)) {
+        return id;
       }
 
-      let clientRouteModule = '"use client";';
+      let content = '"use client";\n';
       for (const staticExport of staticExports) {
         if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
-          clientRouteModule += `import { use${componentName}Props } from "parcel-transformer-react-router-experimental/dist/client-route-component-props.js";\n`;
-          clientRouteModule += `import { ${staticExport} as Source${componentName} } from "client-route-module-source";\n`;
+          content += `import { use${componentName}Props } from "parcel-transformer-react-router-experimental/dist/client-route-component-props.js";\n`;
+          content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
 
-          clientRouteModule += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
+          content += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
             return <Source${componentName} {...use${componentName}Props()} />;
           }\n`;
-          createClientRouteModuleSource();
         } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-          clientRouteModule += `export { ${staticExport} } from "client-route-module-source";\n`;
-          createClientRouteModuleSource();
+          content += `export { ${staticExport} } from "${getClientSourceModuleId()}";\n`;
         }
       }
 
       assets.push({
-        uniqueKey: 'client-route-module',
+        uniqueKey: id,
         type: 'jsx',
-        content: clientRouteModule
+        content
       });
+
+      return id;
     }
 
-    function createClientRouteModuleSource() {
-      if (assets.some(a => a.uniqueKey === 'client-route-module-source')) {
-        return;
+    function getClientSourceModuleId(): string {
+      const id = 'client-route-module-source';
+
+      if (assets.some(a => a.uniqueKey === id)) {
+        return id;
       }
 
       const exportsToRemove = isServerFirstRoute
@@ -112,17 +116,22 @@ export default new Transformer({
       let clientRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(clientRouteModuleAst, exportsToRemove);
 
-      let clientRouteModuleSource = '"use client";\n' + babel.generate(clientRouteModuleAst).code;
+      let content = '"use client";\n' + babel.generate(clientRouteModuleAst).code;
+      
       assets.push({
-        uniqueKey: 'client-route-module-source',
+        uniqueKey: id,
         type: 'jsx',
-        content: clientRouteModuleSource
+        content
       });
+
+      return id;
     }
 
-    function createServerRouteModule() {
-      if (assets.some(a => a.uniqueKey === 'server-route-module')) {
-        return;
+    function getServerModuleId(): string {
+      const id = 'server-route-module';
+
+      if (assets.some(a => a.uniqueKey === id)) {
+        return id;
       }
 
       // server route module
@@ -132,56 +141,51 @@ export default new Transformer({
         isServerFirstRoute ? CLIENT_NON_COMPONENT_EXPORTS : CLIENT_ROUTE_EXPORTS
       );
 
-      let serverRouteModule = babel.generate(serverRouteModuleAst).code;
+      let content = babel.generate(serverRouteModuleAst).code;
       if (!isServerFirstRoute) {
         for (const staticExport of staticExports) {
           if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-            serverRouteModule += `export { ${staticExport} } from "client-route-module";\n`;
-            createClientRouteModule();
+            content += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
           } else if (COMPONENT_EXPORTS_SET.has(staticExport)) {
             // Wrap all route-level client components in server components when
             // it's not a server-first route so Parcel can use the server
             // component to inject CSS resources into the JSX
             const isDefault = staticExport === "default";
             const componentName = isDefault ? "Component" : staticExport;
-            serverRouteModule += `import { ${staticExport} as Client${componentName} } from "client-route-module";\n`;
-            serverRouteModule += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
+            content += `import { ${staticExport} as Client${componentName} } from "${getClientModuleId()}";\n`;
+            content += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
               return <Client${componentName} />;
             }\n`;
-            createClientRouteModule();
           }
         }
       }
 
       assets.push({
-        uniqueKey: 'server-route-module',
+        uniqueKey: id,
         type: 'jsx',
-        content: serverRouteModule
+        content
       });
+
+      return id;
     }
 
     let code = "";
     if (isServerFirstRoute) {
       for (const staticExport of staticExports) {
         if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-          code += `export { ${staticExport} } from "client-route-module"};\n`;
-          createClientRouteModule();
+          code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else if (staticExport === "ServerComponent") {
-          code += `export { ServerComponent as default } from "server-route-module";\n`;
-          createServerRouteModule();
+          code += `export { ServerComponent as default } from "${getServerModuleId()}";\n`;
         } else {
-          code += `export { ${staticExport} } from "server-route-module";\n`;
-          createServerRouteModule();
+          code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
         }
       }
     } else {
       for (const staticExport of staticExports) {
         if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
-          code += `export { ${staticExport} } from "client-route-module";\n`;
-          createClientRouteModule();
+          code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else {
-          code += `export { ${staticExport} } from "server-route-module";\n`;
-          createServerRouteModule();
+          code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
         }
       }
     }
