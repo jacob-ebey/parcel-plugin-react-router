@@ -3,8 +3,7 @@ import oxcTransform from "oxc-transform";
 import { Transformer } from "@parcel/plugin";
 import type { TransformerResult, MutableAsset } from "@parcel/types";
 
-import { generate, parse } from "./babel/babel.ts";
-import { cloneNode } from "@babel/types"
+import * as babel from "./babel/babel.ts";
 import { removeExports } from "./babel/remove-exports.ts";
 
 const SERVER_ONLY_ROUTE_EXPORTS = [
@@ -65,7 +64,7 @@ export default new Transformer({
     // TODO: Add sourcemaps.....
     // TODO: Maybe pass TSConfig in here?
     const transformed = oxcTransform.transform(asset.filePath, routeSource);
-    const ast = parse(transformed.code, {
+    const ast = babel.parse(transformed.code, {
       sourceType: "module",
     });
 
@@ -110,10 +109,10 @@ export default new Transformer({
         ? [...SERVER_ONLY_ROUTE_EXPORTS, ...COMPONENT_EXPORTS]
         : SERVER_ONLY_ROUTE_EXPORTS;
 
-      let clientRouteModuleAst = cloneNode(ast, true);
+      let clientRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(clientRouteModuleAst, exportsToRemove);
 
-      let clientRouteModuleSource = '"use client";\n' + generate(clientRouteModuleAst).code;
+      let clientRouteModuleSource = '"use client";\n' + babel.generate(clientRouteModuleAst).code;
       assets.push({
         uniqueKey: 'client-route-module-source',
         type: 'jsx',
@@ -127,13 +126,13 @@ export default new Transformer({
       }
 
       // server route module
-      let serverRouteModuleAst = cloneNode(ast, true);
+      let serverRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(
         serverRouteModuleAst,
         isServerFirstRoute ? CLIENT_NON_COMPONENT_EXPORTS : CLIENT_ROUTE_EXPORTS
       );
 
-      let serverRouteModule = generate(serverRouteModuleAst).code;
+      let serverRouteModule = babel.generate(serverRouteModuleAst).code;
       if (!isServerFirstRoute) {
         for (const staticExport of staticExports) {
           if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {

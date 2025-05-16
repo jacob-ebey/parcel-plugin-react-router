@@ -3,18 +3,17 @@ import {
   deadCodeElimination,
 } from "babel-dead-code-elimination";
 
-import type { Babel, NodePath, ParseResult } from "./babel.ts";
-import { traverse } from "./babel.ts";
+import * as babel from "./babel.ts";
 
 export const removeExports = (
-  ast: ParseResult<Babel.File>,
+  ast: babel.ParseResult<babel.File>,
   exportsToRemove: string[]
 ) => {
   let previouslyReferencedIdentifiers = findReferencedIdentifiers(ast);
   let exportsFiltered = false;
-  let markedForRemoval = new Set<NodePath<Babel.Node>>();
+  let markedForRemoval = new Set<babel.NodePath<babel.Node>>();
 
-  traverse(ast, {
+  babel.traverse(ast, {
     ExportDeclaration(path) {
       // export { foo };
       // export { bar } from "./module";
@@ -115,7 +114,7 @@ export const removeExports = (
 };
 
 function validateDestructuredExports(
-  id: Babel.ArrayPattern | Babel.ObjectPattern,
+  id: babel.types.ArrayPattern | babel.types.ObjectPattern,
   exportsToRemove: string[]
 ) {
   if (id.type === "ArrayPattern") {
