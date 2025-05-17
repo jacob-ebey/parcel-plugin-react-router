@@ -6,7 +6,8 @@
     "app:build": "parcel build",
     "app:clean": "rm -rf dist .parcel-cache .react-router .react-router-parcel",
     "app:dev": "parcel",
-    "app:start": "node ./dist/server/server.js"
+    "app:start": "node ./dist/server/server.js",
+    "test": "playwright test"
   },
   "targets": {
     "server": {
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@parcel/runtime-rsc": "^2.15.0",
+    "@playwright/test": "^1.52.0",
     "@react-router/dev": "0.0.0-experimental-f1dd850aa",
     "@react-router/fs-routes": "0.0.0-experimental-f1dd850aa",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
