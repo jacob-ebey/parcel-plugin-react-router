@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.14](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.13...parcel-resolver-react-router-experimental-v1.0.14) (2025-05-17)
+
+
+### Bug Fixes
+
+* add transformer plugin ([#49](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/49)) ([61ce2c3](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/61ce2c321041e7d73c48c78f98bac63acea2b641))
+
 ## [1.0.13](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.12...parcel-resolver-react-router-experimental-v1.0.13) (2025-05-14)
 
 
