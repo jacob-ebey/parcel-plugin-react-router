@@ -12,6 +12,9 @@ export const removeExports = (
   let previouslyReferencedIdentifiers = findReferencedIdentifiers(ast);
   let exportsFiltered = false;
   let markedForRemoval = new Set<babel.NodePath<babel.Node>>();
+  // Keep track of identifiers referenced by removed exports,
+  // e.g. export { localName as exportName }, export default function localName
+  let removedExportLocalNames = new Set<string>();
 
   babel.traverse(ast, {
     ExportDeclaration(path) {
@@ -27,6 +30,10 @@ export const removeExports = (
             ) {
               if (exportsToRemove.includes(specifier.exported.name)) {
                 exportsFiltered = true;
+                // Track the local identifier if it's different from the exported name
+                if (specifier.local && specifier.local.name !== specifier.exported.name) {
+                  removedExportLocalNames.add(specifier.local.name);
+                }
                 return false;
               }
             }
@@ -94,11 +101,45 @@ export const removeExports = (
       }
 
       // export default ...;
-      if (
-        path.node.type === "ExportDefaultDeclaration" &&
-        exportsToRemove.includes("default")
-      ) {
-        markedForRemoval.add(path);
+      if (path.node.type === "ExportDefaultDeclaration") {
+        if (exportsToRemove.includes("default")) {
+          markedForRemoval.add(path);
+          // Track the identifier being exported as default
+          if (path.node.declaration) {
+            if (path.node.declaration.type === "Identifier") {
+              removedExportLocalNames.add(path.node.declaration.name);
+            } else if (
+              (path.node.declaration.type === "FunctionDeclaration" ||
+               path.node.declaration.type === "ClassDeclaration") &&
+              path.node.declaration.id
+            ) {
+              removedExportLocalNames.add(path.node.declaration.id.name);
+            }
+          }
+        }
+      }
+    },
+  });
+
+  // Remove top-level property assignments to removed exports. Handles
+  // `clientLoader.hydrate = true`, `Component.displayName = "..."`, etc.
+  babel.traverse(ast, {
+    ExpressionStatement(path) {
+      // Only handle top-level statements
+      if (!path.parentPath.isProgram()) {
+        return;
+      }
+
+      if (path.node.expression.type === "AssignmentExpression") {
+        const left = path.node.expression.left;
+        if (
+          left.type === "MemberExpression" &&
+          left.object.type === "Identifier" &&
+          (exportsToRemove.includes(left.object.name) ||
+            removedExportLocalNames.has(left.object.name))
+        ) {
+          markedForRemoval.add(path);
+        }
       }
     },
   });
