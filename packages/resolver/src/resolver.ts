@@ -2,6 +2,7 @@ import * as fsp from "node:fs/promises";
 import * as path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import type { Config as ParcelConfig } from "@parcel/types";
 import { Resolver } from "@parcel/plugin";
 import type { Config } from "@react-router/dev/config";
 import {
@@ -10,10 +11,19 @@ import {
 } from "@react-router/dev/routes";
 import { createJiti } from "jiti";
 
-const loader = createJiti(pathToFileURL(__filename).href);
+const configLoader = createJiti(pathToFileURL(__filename).href);
+
+// We disable the module cache for this loader so we get fresh routes from the
+// file system every time we import routes.ts. Note that the module cache is
+// shared with Node if it's enabled, which makes it difficult to manage the
+// cache without causing other issues since we also need to invalidate any of
+// routes.ts' dependant modules.
+const routesLoader = createJiti(pathToFileURL(__filename).href, {
+  moduleCache: false,
+});
 
 export default new Resolver({
-  async loadConfig({ config }) {
+  async loadConfig({ config: parcelConfig }) {
     await fsp.mkdir(".react-router-parcel/types", { recursive: true });
     await fsp.writeFile(
       ".react-router-parcel/types/+virtual-parcel.d.ts",
@@ -53,27 +63,27 @@ declare module "virtual:react-router/routes" {
     const configPath = await findCodeFile(process.cwd(), "react-router.config");
 
     if (configPath) {
-      config.invalidateOnFileChange(configPath);
-      config.invalidateOnFileCreate({
+      parcelConfig.invalidateOnFileChange(configPath);
+      parcelConfig.invalidateOnFileCreate({
         filePath: configPath,
       });
     } else {
-      config.invalidateOnFileCreate({
+      parcelConfig.invalidateOnFileCreate({
         filePath: path.join(process.cwd(), "react-router.config.ts"),
       });
-      config.invalidateOnFileCreate({
+      parcelConfig.invalidateOnFileCreate({
         filePath: path.join(process.cwd(), "react-router.config.tsx"),
       });
-      config.invalidateOnFileCreate({
+      parcelConfig.invalidateOnFileCreate({
         filePath: path.join(process.cwd(), "react-router.config.js"),
       });
-      config.invalidateOnFileCreate({
+      parcelConfig.invalidateOnFileCreate({
         filePath: path.join(process.cwd(), "react-router.config.jsx"),
       });
     }
 
     const rrConfig = configPath
-      ? await loader
+      ? await configLoader
           .import(configPath)
           .then((mod) => {
             return (mod as { default: Config }).default;
@@ -87,7 +97,6 @@ declare module "virtual:react-router/routes" {
       process.cwd(),
       rrConfig.appDirectory || "app"
     );
-    // const routesPath = path.join(appDirectory, "routes.ts");
     const routesPath = await findCodeFile(appDirectory, "routes");
 
     if (!routesPath) {
@@ -96,13 +105,13 @@ declare module "virtual:react-router/routes" {
       );
     }
 
-    config.invalidateOnFileChange(routesPath);
-    config.invalidateOnFileCreate({
+    parcelConfig.invalidateOnFileChange(routesPath);
+    parcelConfig.invalidateOnFileCreate({
       filePath: routesPath,
     });
 
     global.__reactRouterAppDirectory = appDirectory;
-    let routes = await loader
+    let routes = await routesLoader
       .import(routesPath)
       .then(
         (mod) =>
@@ -125,6 +134,17 @@ declare module "virtual:react-router/routes" {
         children: routes,
       },
     ];
+
+    parcelConfig.invalidateOnFileCreate({
+      filePath: appDirectory,
+      glob: "**/*.+(ts|tsx|js|jsx)",
+    });
+
+    invalidateConfigOnRoutesChange({
+      appDirectory,
+      parcelConfig,
+      routes,
+    });
 
     return { appDirectory, routes, routesPath };
   },
@@ -186,6 +206,30 @@ declare module "virtual:react-router/routes" {
     }
   },
 });
+
+function invalidateConfigOnRoutesChange ({
+  appDirectory,
+  parcelConfig,
+  routes,
+}: {
+  appDirectory: string;
+  parcelConfig: ParcelConfig;
+  routes: RouteConfigEntry[];
+}) {
+  for (const route of routes) {
+    if (route.file) {
+      const routeFilePath = path.resolve(appDirectory, route.file);
+      parcelConfig.invalidateOnFileChange(routeFilePath);
+    }
+    if (route.children) {
+      invalidateConfigOnRoutesChange({
+        appDirectory,
+        parcelConfig,
+        routes: route.children,
+      });
+    }
+  }
+};
 
 function createRouteId(file: string, appDirectory: string) {
   return path
