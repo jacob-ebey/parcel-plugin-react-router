@@ -69,11 +69,11 @@ export default new Transformer({
     const ast = babel.parse(transformed.code, {
       sourceType: "module",
     });
-        
-    function getClientModuleId(): string {
-      const id = 'client-route-module';
 
-      if (assets.some(a => a.uniqueKey === id)) {
+    function getClientModuleId(): string {
+      const id = "client-route-module";
+
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
@@ -82,7 +82,10 @@ export default new Transformer({
         if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
-          content += `import { use${componentName}Props } from "parcel-transformer-react-router-experimental/dist/client-route-component-props.js";\n`;
+          const hooksPath = require.resolve(
+            "./client-route-component-props.js"
+          );
+          content += `import { use${componentName}Props } from ${JSON.stringify(hooksPath)};\n`;
           content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
 
           content += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
@@ -95,17 +98,17 @@ export default new Transformer({
 
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
     }
 
     function getClientSourceModuleId(): string {
-      const id = 'client-route-module-source';
+      const id = "client-route-module-source";
 
-      if (assets.some(a => a.uniqueKey === id)) {
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
@@ -116,21 +119,22 @@ export default new Transformer({
       let clientRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(clientRouteModuleAst, exportsToRemove);
 
-      let content = '"use client";\n' + babel.generate(clientRouteModuleAst).code;
-      
+      let content =
+        '"use client";\n' + babel.generate(clientRouteModuleAst).code;
+
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
     }
 
     function getServerModuleId(): string {
-      const id = 'server-route-module';
+      const id = "server-route-module";
 
-      if (assets.some(a => a.uniqueKey === id)) {
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
@@ -162,8 +166,8 @@ export default new Transformer({
 
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
@@ -192,5 +196,5 @@ export default new Transformer({
 
     asset.setCode(code);
     return assets;
-  }
+  },
 });
