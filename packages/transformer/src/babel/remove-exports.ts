@@ -7,7 +7,7 @@ import * as babel from "./babel.ts";
 
 export const removeExports = (
   ast: babel.ParseResult<babel.File>,
-  exportsToRemove: string[]
+  exportsToRemove: string[],
 ) => {
   let previouslyReferencedIdentifiers = findReferencedIdentifiers(ast);
   let exportsFiltered = false;
@@ -31,7 +31,10 @@ export const removeExports = (
               if (exportsToRemove.includes(specifier.exported.name)) {
                 exportsFiltered = true;
                 // Track the local identifier if it's different from the exported name
-                if (specifier.local && specifier.local.name !== specifier.exported.name) {
+                if (
+                  specifier.local &&
+                  specifier.local.name !== specifier.exported.name
+                ) {
                   removedExportLocalNames.add(specifier.local.name);
                 }
                 return false;
@@ -75,7 +78,7 @@ export const removeExports = (
               }
 
               return true;
-            }
+            },
           );
           // Remove the entire export statement if all variables were removed
           if (declaration.declarations.length === 0) {
@@ -110,7 +113,7 @@ export const removeExports = (
               removedExportLocalNames.add(path.node.declaration.name);
             } else if (
               (path.node.declaration.type === "FunctionDeclaration" ||
-               path.node.declaration.type === "ClassDeclaration") &&
+                path.node.declaration.type === "ClassDeclaration") &&
               path.node.declaration.id
             ) {
               removedExportLocalNames.add(path.node.declaration.id.name);
@@ -156,7 +159,7 @@ export const removeExports = (
 
 function validateDestructuredExports(
   id: babel.types.ArrayPattern | babel.types.ObjectPattern,
-  exportsToRemove: string[]
+  exportsToRemove: string[],
 ) {
   if (id.type === "ArrayPattern") {
     for (let element of id.elements) {

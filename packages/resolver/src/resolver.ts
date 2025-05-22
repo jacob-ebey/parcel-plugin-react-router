@@ -38,7 +38,7 @@ declare module "virtual:react-router/routes" {
   import { ServerRouteObject } from "react-router/rsc";
   const routes: ServerRouteObject[];
   export default routes;
-}`.trim()
+}`.trim(),
     );
 
     // These aren't used by the build, but written as an example to copy and paste if
@@ -47,15 +47,15 @@ declare module "virtual:react-router/routes" {
     await Promise.all([
       fsp.copyFile(
         path.join(__dirname, "entry.browser.tsx"),
-        "./.react-router-parcel/entries/entry.browser.tsx"
+        "./.react-router-parcel/entries/entry.browser.tsx",
       ),
       fsp.copyFile(
         path.join(__dirname, "entry.rsc.ts"),
-        "./.react-router-parcel/entries/entry.rsc.ts"
+        "./.react-router-parcel/entries/entry.rsc.ts",
       ),
       fsp.copyFile(
         path.join(__dirname, "entry.ssr.tsx"),
-        "./.react-router-parcel/entries/entry.ssr.tsx"
+        "./.react-router-parcel/entries/entry.ssr.tsx",
       ),
     ]);
 
@@ -95,13 +95,13 @@ declare module "virtual:react-router/routes" {
 
     const appDirectory = path.resolve(
       process.cwd(),
-      rrConfig.appDirectory || "app"
+      rrConfig.appDirectory || "app",
     );
     const routesPath = await findCodeFile(appDirectory, "routes");
 
     if (!routesPath) {
       throw new Error(
-        `Could not find routes.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`
+        `Could not find routes.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`,
       );
     }
 
@@ -115,14 +115,14 @@ declare module "virtual:react-router/routes" {
       .import(routesPath)
       .then(
         (mod) =>
-          (mod as { default: RouteConfig }).default ?? (mod as RouteConfig)
+          (mod as { default: RouteConfig }).default ?? (mod as RouteConfig),
       );
 
     const rootFile = await findCodeFile(appDirectory, "root");
 
     if (!rootFile) {
       throw new Error(
-        `Could not find root.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`
+        `Could not find root.[ts|tsx|js|jsx] in ${appDirectory}. Please create one.`,
       );
     }
 
@@ -175,7 +175,11 @@ declare module "virtual:react-router/routes" {
 
         code += "{";
         code += `lazy: () => import(${JSON.stringify(
-          "route-module:/" + path.relative(options.projectRoot, path.resolve(config.appDirectory, route.file))
+          "route-module:/" +
+            path.relative(
+              options.projectRoot,
+              path.resolve(config.appDirectory, route.file),
+            ),
         )}),`;
 
         code += `id: ${JSON.stringify(route.id || createRouteId(route.file, config.appDirectory))},`;
@@ -207,7 +211,7 @@ declare module "virtual:react-router/routes" {
   },
 });
 
-function invalidateConfigOnRoutesChange ({
+function invalidateConfigOnRoutesChange({
   appDirectory,
   parcelConfig,
   routes,
@@ -229,7 +233,7 @@ function invalidateConfigOnRoutesChange ({
       });
     }
   }
-};
+}
 
 function createRouteId(file: string, appDirectory: string) {
   return path
@@ -241,7 +245,7 @@ function createRouteId(file: string, appDirectory: string) {
 async function findFileWithExtension(
   dir: string,
   base: string,
-  extensions: string[]
+  extensions: string[],
 ) {
   for (const ext of extensions) {
     const filePath = path.join(dir, base + ext);

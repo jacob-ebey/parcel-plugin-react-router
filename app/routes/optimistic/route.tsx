@@ -3,7 +3,6 @@ import { ToggleLikedForm } from "./form";
 
 let liked = false;
 export async function toggleLikedAction() {
-
   await new Promise((resolve) => setTimeout(resolve, 1000));
   liked = !liked;
 }

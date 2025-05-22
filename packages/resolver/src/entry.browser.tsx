@@ -33,9 +33,9 @@ createFromReadableStream(getServerStream(), { assets: "manifest" }).then(
           React.createElement(RSCHydratedRouter, {
             decode: (body) => createFromReadableStream(body),
             payload,
-          })
-        )
+          }),
+        ),
       );
     });
-  }
+  },
 );

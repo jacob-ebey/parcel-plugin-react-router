@@ -12,7 +12,9 @@ export function clientLoader() {
 
 clientLoader.hydrate = true;
 
-export default function ClientLoaderHydrateRoute({ loaderData }: Route.ComponentProps) {
+export default function ClientLoaderHydrateRoute({
+  loaderData,
+}: Route.ComponentProps) {
   return (
     <main>
       <h1 className={styles.heading}>Client loader</h1>

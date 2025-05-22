@@ -24,17 +24,24 @@ const COMPONENT_EXPORTS_WITH_PROPS_HOC = [
   "ErrorBoundary",
   "HydrateFallback",
 ] as const;
-type ComponentExportWithPropsHoc = typeof COMPONENT_EXPORTS_WITH_PROPS_HOC[number];
-const COMPONENT_EXPORTS_WITH_PROPS_HOC_SET = new Set(COMPONENT_EXPORTS_WITH_PROPS_HOC);
-function isComponentExportWithPropsHoc(name: string): name is ComponentExportWithPropsHoc {
-  return COMPONENT_EXPORTS_WITH_PROPS_HOC_SET.has(name as ComponentExportWithPropsHoc);
+type ComponentExportWithPropsHoc =
+  (typeof COMPONENT_EXPORTS_WITH_PROPS_HOC)[number];
+const COMPONENT_EXPORTS_WITH_PROPS_HOC_SET = new Set(
+  COMPONENT_EXPORTS_WITH_PROPS_HOC,
+);
+function isComponentExportWithPropsHoc(
+  name: string,
+): name is ComponentExportWithPropsHoc {
+  return COMPONENT_EXPORTS_WITH_PROPS_HOC_SET.has(
+    name as ComponentExportWithPropsHoc,
+  );
 }
 
 const COMPONENT_EXPORTS = [
   ...COMPONENT_EXPORTS_WITH_PROPS_HOC,
   "Layout",
 ] as const;
-type ComponentExport = typeof COMPONENT_EXPORTS[number];
+type ComponentExport = (typeof COMPONENT_EXPORTS)[number];
 const COMPONENT_EXPORTS_SET = new Set(COMPONENT_EXPORTS);
 
 const CLIENT_NON_COMPONENT_EXPORTS = [
@@ -75,7 +82,7 @@ export default new Transformer({
     const routeSource = await asset.getCode();
     const staticExports = await parseExports(asset.filePath, routeSource);
     const isServerFirstRoute = staticExports.some(
-      (staticExport) => staticExport === "ServerComponent"
+      (staticExport) => staticExport === "ServerComponent",
     );
 
     // TODO: Add sourcemaps.....
@@ -84,24 +91,27 @@ export default new Transformer({
     const ast = babel.parse(transformed.code, {
       sourceType: "module",
     });
-        
-    function getClientModuleId(): string {
-      const id = 'client-route-module';
 
-      if (assets.some(a => a.uniqueKey === id)) {
+    function getClientModuleId(): string {
+      const id = "client-route-module";
+
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
       let content = '"use client";\n';
       for (const staticExport of staticExports) {
-        if (!isServerFirstRoute && isComponentExportWithPropsHoc(staticExport)) {
+        if (
+          !isServerFirstRoute &&
+          isComponentExportWithPropsHoc(staticExport)
+        ) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
           const withPropsHocName: WithPropsHocName = `UNSAFE_with${componentName}Props`;
           content += `import { ${withPropsHocName} } from "react-router";\n`;
           content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
           content += `const Decorated${componentName} = UNSAFE_with${componentName}Props(Source${componentName});\n`;
-          content += `export ${isDefault ? "default" : `const ${staticExport} =`} Decorated${componentName};\n`
+          content += `export ${isDefault ? "default" : `const ${staticExport} =`} Decorated${componentName};\n`;
         } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
           content += `export { ${staticExport} } from "${getClientSourceModuleId()}";\n`;
         }
@@ -109,17 +119,17 @@ export default new Transformer({
 
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
     }
 
     function getClientSourceModuleId(): string {
-      const id = 'client-route-module-source';
+      const id = "client-route-module-source";
 
-      if (assets.some(a => a.uniqueKey === id)) {
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
@@ -130,21 +140,22 @@ export default new Transformer({
       let clientRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(clientRouteModuleAst, exportsToRemove);
 
-      let content = '"use client";\n' + babel.generate(clientRouteModuleAst).code;
-      
+      let content =
+        '"use client";\n' + babel.generate(clientRouteModuleAst).code;
+
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
     }
 
     function getServerModuleId(): string {
-      const id = 'server-route-module';
+      const id = "server-route-module";
 
-      if (assets.some(a => a.uniqueKey === id)) {
+      if (assets.some((a) => a.uniqueKey === id)) {
         return id;
       }
 
@@ -152,7 +163,9 @@ export default new Transformer({
       let serverRouteModuleAst = babel.cloneNode(ast, true);
       removeExports(
         serverRouteModuleAst,
-        isServerFirstRoute ? CLIENT_NON_COMPONENT_EXPORTS : CLIENT_ROUTE_EXPORTS
+        isServerFirstRoute
+          ? CLIENT_NON_COMPONENT_EXPORTS
+          : CLIENT_ROUTE_EXPORTS,
       );
 
       let content = babel.generate(serverRouteModuleAst).code;
@@ -160,7 +173,9 @@ export default new Transformer({
         for (const staticExport of staticExports) {
           if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
             content += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
-          } else if (COMPONENT_EXPORTS_SET.has(staticExport as ComponentExport)) {
+          } else if (
+            COMPONENT_EXPORTS_SET.has(staticExport as ComponentExport)
+          ) {
             // Wrap all route-level client components in server components when
             // it's not a server-first route so Parcel can use the server
             // component to inject CSS resources into the JSX
@@ -176,8 +191,8 @@ export default new Transformer({
 
       assets.push({
         uniqueKey: id,
-        type: 'jsx',
-        content
+        type: "jsx",
+        content,
       });
 
       return id;
@@ -206,5 +221,5 @@ export default new Transformer({
 
     asset.setCode(code);
     return assets;
-  }
+  },
 });

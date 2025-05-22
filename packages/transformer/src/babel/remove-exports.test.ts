@@ -18,7 +18,7 @@ describe("transform", () => {
       export const keptExport_1 = () => {}
       export const keptExport_2 = () => {}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = () => {};
@@ -46,7 +46,7 @@ describe("transform", () => {
       export const keptExport_1 = () => keptUtil()
       export const keptExport_2 = () => keptUtil()
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -72,7 +72,7 @@ describe("transform", () => {
       export const keptExport_2 = () => {}
       keptExport_2.keptProperty = true
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = () => {};
@@ -92,7 +92,7 @@ describe("transform", () => {
       export function keptExport_1(){}
       export function keptExport_2(){}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export function keptExport_1() {}
@@ -120,7 +120,7 @@ describe("transform", () => {
       export function keptExport_1() { return keptUtil() }
       export function keptExport_2() { return keptUtil() }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -154,7 +154,7 @@ describe("transform", () => {
       export function keptExport_2(){}
       keptExport_2.keptProperty = true
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export function keptExport_1() {}
@@ -174,7 +174,7 @@ describe("transform", () => {
       export const keptExport_1 = {}
       export const keptExport_2 = {}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = {};
@@ -202,7 +202,7 @@ describe("transform", () => {
       export const keptExport_1 = { value: keptUtil() }
       export const keptExport_2 = { value: keptUtil() }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -228,7 +228,7 @@ describe("transform", () => {
       export class keptExport_1 {}
       export class keptExport_2 {}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export class keptExport_1 {}
@@ -264,7 +264,7 @@ describe("transform", () => {
         static util = keptUtil()
       }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -290,7 +290,7 @@ describe("transform", () => {
       export const keptExport_1 = globalFunction()
       export const keptExport_2 = globalFunction()
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = globalFunction();
@@ -318,7 +318,7 @@ describe("transform", () => {
       export const keptExport_1 = keptUtil()
       export const keptExport_2 = keptUtil()
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -340,7 +340,7 @@ describe("transform", () => {
       export const keptExport_1 = (() => {})()
       export const keptExport_2 = (() => {})()
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = (() => {})();
@@ -368,7 +368,7 @@ describe("transform", () => {
       export const keptExport_1 = (() => keptUtil())()
       export const keptExport_2 = (() => keptUtil())()
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptLib } from 'kept-lib';
@@ -400,7 +400,7 @@ describe("transform", () => {
       export { keptExport_1 }
       export { keptExport_2 }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const keptExport_1 = () => {};
@@ -429,7 +429,7 @@ describe("transform", () => {
       export { removedExport_1, removedExport_2 }
       export { keptExport_1, keptExport_2 }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const keptExport_1 = () => {};
@@ -457,7 +457,7 @@ describe("transform", () => {
       export { removedExport_1, keptExport_1 }
       export { removedExport_2, keptExport_2 }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const keptExport_1 = () => {};
@@ -492,7 +492,7 @@ describe("transform", () => {
         keptExport_2 as keptExport_2_renamed
       }
     `,
-      ["removedExport_1_renamed", "removedExport_2_renamed"]
+      ["removedExport_1_renamed", "removedExport_2_renamed"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const keptExport_1 = () => {};
@@ -514,7 +514,7 @@ describe("transform", () => {
       export { keptExport_1 } from './kept/1'
       export { keptExport_2 } from './kept/2'
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export { keptExport_1 } from './kept/1';
@@ -529,10 +529,10 @@ describe("transform", () => {
       export { removedExport_1, removedExport_2 } from './removed'
       export { keptExport_1, keptExport_2 } from './kept'
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(
-      "\"export { keptExport_1, keptExport_2 } from './kept';\""
+      "\"export { keptExport_1, keptExport_2 } from './kept';\"",
     );
     expect(result.code).not.toMatch(/removed/i);
   });
@@ -543,7 +543,7 @@ describe("transform", () => {
       export { removeMe_1, keepMe_1 } from './1'
       export { removeMe_2, keepMe_2 } from './2'
     `,
-      ["removeMe_1", "removeMe_2"]
+      ["removeMe_1", "removeMe_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export { keepMe_1 } from './1';
@@ -566,7 +566,7 @@ describe("transform", () => {
       export { keptExport_1 }
       export { keptExport_2 }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptExport_1 } from './kept/1';
@@ -586,7 +586,7 @@ describe("transform", () => {
       export { removedExport_1, removedExport_2 }
       export { keptExport_1, keptExport_2 }
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keptExport_1, keptExport_2 } from './kept';
@@ -604,7 +604,7 @@ describe("transform", () => {
       export { removeMe_1, keepMe_1 }
       export { removeMe_2, keepMe_2 }
     `,
-      ["removeMe_1", "removeMe_2"]
+      ["removeMe_1", "removeMe_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "import { keepMe_1 } from './1';
@@ -624,7 +624,7 @@ describe("transform", () => {
       export const keptExport_1 = 123
       export const keptExport_2 = 123
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = 123;
@@ -642,7 +642,7 @@ describe("transform", () => {
       export const keptExport_1 = 'string'
       export const keptExport_2 = 'string'
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = 'string';
@@ -663,7 +663,7 @@ describe("transform", () => {
       export const keptExport_1 = KEPT_STRING
       export const keptExport_2 = KEPT_STRING
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const KEPT_STRING = 'KEPT_STRING';
@@ -682,7 +682,7 @@ describe("transform", () => {
       export const keptExport_1 = null
       export const keptExport_2 = null
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = null;
@@ -700,7 +700,7 @@ describe("transform", () => {
       export const keptExport_1 = null,
         keptExport_2 = null
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = null,
@@ -718,7 +718,7 @@ describe("transform", () => {
       export const keptExport_2 = null,
         removedExport_2 = null
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = null;
@@ -735,10 +735,10 @@ describe("transform", () => {
 
         export const [keptExport_1, keptExport_2] = [null, null]
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_1"]`
+      `[Error: Cannot remove destructured export "removedExport_1"]`,
     );
   });
 
@@ -750,10 +750,10 @@ describe("transform", () => {
 
         export const [keptExport_1, keptExport_2] = [null, null]
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_1"]`
+      `[Error: Cannot remove destructured export "removedExport_1"]`,
     );
   });
 
@@ -763,10 +763,10 @@ describe("transform", () => {
         `
         export const [keepMe_1, [{ nested: [ { nested: [removedExport_2] } ] }] ] = nested;
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_2"]`
+      `[Error: Cannot remove destructured export "removedExport_2"]`,
     );
   });
 
@@ -775,10 +775,10 @@ describe("transform", () => {
       `
       export const [keptExport_1, keptExport_2] = [null, null]
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(
-      `"export const [keptExport_1, keptExport_2] = [null, null];"`
+      `"export const [keptExport_1, keptExport_2] = [null, null];"`,
     );
     expect(result.code).not.toMatch(/removed/i);
   });
@@ -791,10 +791,10 @@ describe("transform", () => {
 
         export const { keptExport_1, keptExport_2 } = {}
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_1"]`
+      `[Error: Cannot remove destructured export "removedExport_1"]`,
     );
   });
 
@@ -806,10 +806,10 @@ describe("transform", () => {
 
         export const { ...keptExport_1 } = {}
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_1"]`
+      `[Error: Cannot remove destructured export "removedExport_1"]`,
     );
   });
 
@@ -819,10 +819,10 @@ describe("transform", () => {
         `
         export const [keepMe_1, [{ nested: [ { nested: { removedExport_2 } } ] }]] = nested;
       `,
-        ["removedExport_1", "removedExport_2"]
-      )
+        ["removedExport_1", "removedExport_2"],
+      ),
     ).toThrowErrorMatchingInlineSnapshot(
-      `[Error: Cannot remove destructured export "removedExport_2"]`
+      `[Error: Cannot remove destructured export "removedExport_2"]`,
     );
   });
 
@@ -831,7 +831,7 @@ describe("transform", () => {
       `
       export const { keptExport_1, keptExport_2 } = {}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const {
@@ -853,7 +853,7 @@ describe("transform", () => {
 
       export default removeMe;
     `,
-      ["default"]
+      ["default"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keepMe = () => {};
@@ -873,7 +873,7 @@ describe("transform", () => {
 
       export { removeMe as default };
     `,
-      ["default"]
+      ["default"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keepMe = () => {};
@@ -893,7 +893,7 @@ describe("transform", () => {
 
       export { removeMe as default, keepMe };
     `,
-      ["default"]
+      ["default"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "const keepMe = () => {};
@@ -910,7 +910,7 @@ describe("transform", () => {
 
       export { default } from "./module";
     `,
-      ["default"]
+      ["default"],
     );
     expect(result.code).toMatchInlineSnapshot(`"export const keepMe = null;"`);
     expect(result.code).not.toMatch(/default/i);
@@ -921,10 +921,10 @@ describe("transform", () => {
       `
       export { default, keepMe } from "./module";
     `,
-      ["default"]
+      ["default"],
     );
     expect(result.code).toMatchInlineSnapshot(
-      `"export { keepMe } from "./module";"`
+      `"export { keepMe } from "./module";"`,
     );
     expect(result.code).not.toMatch(/default/i);
   });
@@ -935,7 +935,7 @@ describe("transform", () => {
       export const keptExport_1 = () => {}
       export const keptExport_2 = () => {}
     `,
-      ["removedExport_1", "removedExport_2"]
+      ["removedExport_1", "removedExport_2"],
     );
     expect(result.code).toMatchInlineSnapshot(`
       "export const keptExport_1 = () => {};

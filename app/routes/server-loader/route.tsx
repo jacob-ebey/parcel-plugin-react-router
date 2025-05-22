@@ -6,7 +6,9 @@ export function loader() {
   return "hello, world from server loader";
 }
 
-export default function ServerLoaderRoute({ loaderData }: Route.ComponentProps) {
+export default function ServerLoaderRoute({
+  loaderData,
+}: Route.ComponentProps) {
   return (
     <main>
       <h1 className={styles.heading}>Server loader</h1>

@@ -29,11 +29,11 @@ app.use(
             bootstrapScriptContent: (
               callServer as unknown as { bootstrapScript: string }
             ).bootstrapScript,
-          }
+          },
         );
       },
     });
-  })
+  }),
 );
 
 export default app;

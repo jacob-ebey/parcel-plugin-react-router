@@ -10,7 +10,9 @@ export function clientLoader() {
   return "hello, world from client loader";
 }
 
-export default function ClientLoaderRoute({ loaderData }: Route.ComponentProps) {
+export default function ClientLoaderRoute({
+  loaderData,
+}: Route.ComponentProps) {
   return (
     <main>
       <h1 className={styles.heading}>Client loader</h1>

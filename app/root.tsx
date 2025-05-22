@@ -28,7 +28,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Link to="/client-loader-hydrate">Client loader hydrate</Link>
               </li>
               <li>
-                <Link to="/client-loader-without-server-loader">Client loader without server loader</Link>
+                <Link to="/client-loader-without-server-loader">
+                  Client loader without server loader
+                </Link>
               </li>
             </ul>
           </nav>

@@ -9,7 +9,9 @@
     "app:start": "node ./dist/server/server.js",
     "test": "yarn test:vitest run && yarn test:playwright",
     "test:playwright": "playwright test",
-    "test:vitest": "vitest"
+    "test:vitest": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "targets": {
     "server": {

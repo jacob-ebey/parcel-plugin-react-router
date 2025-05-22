@@ -4,4 +4,4 @@ export { parse, type ParseResult } from "@babel/parser";
 export { default as traverse } from "@babel/traverse";
 export { default as generate } from "@babel/generator";
 export type { File } from "@babel/types";
-export { cloneNode } from "@babel/types"
+export { cloneNode } from "@babel/types";
