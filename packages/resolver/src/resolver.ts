@@ -158,15 +158,6 @@ declare module "virtual:react-router/routes" {
       };
     }
 
-    if (specifier === "virtual:react-router/client-route-component-props") {
-      const filePath = path.resolve(__dirname, "./client-route-component-props.js");
-      const code = await fsp.readFile(filePath, "utf-8");
-      return {
-        filePath,
-        code,
-      };
-    }
-
     if (specifier === "virtual:react-router/routes") {
       let code = "export default [";
 

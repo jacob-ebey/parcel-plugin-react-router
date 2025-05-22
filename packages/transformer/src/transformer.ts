@@ -82,12 +82,10 @@ export default new Transformer({
         if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
-          content += `import { use${componentName}Props } from "virtual:react-router/client-route-component-props";\n`;
+          content += `import { UNSAFE_with${componentName}Props } from "react-router";\n`;
           content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
-
-          content += `export ${isDefault ? "default" : `const ${staticExport} =`} function DecoratedRoute${componentName}() {
-            return <Source${componentName} {...use${componentName}Props()} />;
-          }\n`;
+          content += `const Decorated${componentName} = UNSAFE_with${componentName}Props(Source${componentName});\n`;
+          content += `export ${isDefault ? "default" : `const ${staticExport} =`} Decorated${componentName};\n`
         } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
           content += `export { ${staticExport} } from "${getClientSourceModuleId()}";\n`;
         }
