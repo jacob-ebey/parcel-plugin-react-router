@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.14](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.13...parcel-resolver-react-router-experimental-v1.0.14) (2025-05-22)
+
+
+### Bug Fixes
+
+* add transformer plugin ([#49](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/49)) ([61ce2c3](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/61ce2c321041e7d73c48c78f98bac63acea2b641))
+* fix client-route-component-props resolution ([#60](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/60)) ([e89b7d4](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/e89b7d4a8a986ce25149f0022e455d1d3484a9ac))
+* invalidate route config to support FS routes ([#56](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/56)) ([7da91cd](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/7da91cd88acc510d24194a303bdefe42af2a4875))
+* use new route component prop utils from react-router ([#63](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/63)) ([5d39b96](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/5d39b9621900715a64c3679e3f80bad659b1b6c2))
+
 ## [1.0.13](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.0.12...parcel-resolver-react-router-experimental-v1.0.13) (2025-05-14)
 
 
