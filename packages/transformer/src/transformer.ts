@@ -14,12 +14,27 @@ const SERVER_ONLY_ROUTE_EXPORTS = [
   "ServerComponent",
 ];
 
-const COMPONENT_EXPORTS = [
+type WithPropsHocName =
+  | "UNSAFE_withComponentProps"
+  | "UNSAFE_withErrorBoundaryProps"
+  | "UNSAFE_withHydrateFallbackProps";
+
+const COMPONENT_EXPORTS_WITH_PROPS_HOC = [
   "default",
   "ErrorBoundary",
   "HydrateFallback",
+] as const;
+type ComponentExportWithPropsHoc = typeof COMPONENT_EXPORTS_WITH_PROPS_HOC[number];
+const COMPONENT_EXPORTS_WITH_PROPS_HOC_SET = new Set(COMPONENT_EXPORTS_WITH_PROPS_HOC);
+function isComponentExportWithPropsHoc(name: string): name is ComponentExportWithPropsHoc {
+  return COMPONENT_EXPORTS_WITH_PROPS_HOC_SET.has(name as ComponentExportWithPropsHoc);
+}
+
+const COMPONENT_EXPORTS = [
+  ...COMPONENT_EXPORTS_WITH_PROPS_HOC,
   "Layout",
-];
+] as const;
+type ComponentExport = typeof COMPONENT_EXPORTS[number];
 const COMPONENT_EXPORTS_SET = new Set(COMPONENT_EXPORTS);
 
 const CLIENT_NON_COMPONENT_EXPORTS = [
@@ -79,10 +94,11 @@ export default new Transformer({
 
       let content = '"use client";\n';
       for (const staticExport of staticExports) {
-        if (!isServerFirstRoute && COMPONENT_EXPORTS_SET.has(staticExport)) {
+        if (!isServerFirstRoute && isComponentExportWithPropsHoc(staticExport)) {
           const isDefault = staticExport === "default";
           const componentName = isDefault ? "Component" : staticExport;
-          content += `import { UNSAFE_with${componentName}Props } from "react-router";\n`;
+          const withPropsHocName: WithPropsHocName = `UNSAFE_with${componentName}Props`;
+          content += `import { ${withPropsHocName} } from "react-router";\n`;
           content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
           content += `const Decorated${componentName} = UNSAFE_with${componentName}Props(Source${componentName});\n`;
           content += `export ${isDefault ? "default" : `const ${staticExport} =`} Decorated${componentName};\n`
@@ -144,7 +160,7 @@ export default new Transformer({
         for (const staticExport of staticExports) {
           if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
             content += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
-          } else if (COMPONENT_EXPORTS_SET.has(staticExport)) {
+          } else if (COMPONENT_EXPORTS_SET.has(staticExport as ComponentExport)) {
             // Wrap all route-level client components in server components when
             // it's not a server-first route so Parcel can use the server
             // component to inject CSS resources into the JSX
