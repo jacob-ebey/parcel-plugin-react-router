@@ -30,13 +30,13 @@
   },
   "devDependencies": {
     "@parcel/types": "^2.15.0",
-    "@react-router/dev": "0.0.0-experimental-f1dd850aa",
+    "@react-router/dev": "0.0.0-experimental-e87ed2fd4",
     "@types/express": "^5.0.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "0.0.0-experimental-f1dd850aa",
+    "react-router": "0.0.0-experimental-e87ed2fd4",
     "react-server-dom-parcel": "^19.1.0",
     "tsup": "^8.4.0"
   },
