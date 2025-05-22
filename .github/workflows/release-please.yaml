@@ -43,6 +43,11 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           strategy: upgrade
+          package: ./packages/transformer
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          strategy: upgrade
           package: ./packages/typegen
       - uses: JS-DevTools/npm-publish@v3
         with:
