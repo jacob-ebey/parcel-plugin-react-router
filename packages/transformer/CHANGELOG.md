@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-transformer-react-router-experimental-v1.0.0...parcel-transformer-react-router-experimental-v1.1.0) (2025-05-28)
+
+
+### Features
+
+* update to `0.0.0-experimental-e7eb25a7b` (`unstable_` prefixed APIs) ([#66](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/66)) ([fb9d1b6](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/fb9d1b6420cd837dc359e972b7f8ea19dee08807))
+
 ## 1.0.0 (2025-05-22)
 
 
