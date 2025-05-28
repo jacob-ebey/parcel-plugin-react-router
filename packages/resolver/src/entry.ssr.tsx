@@ -4,8 +4,8 @@ import express from "express";
 // @ts-expect-error - no types
 import { renderToReadableStream as renderHTMLToReadableStream } from "react-dom/server.edge" assert { env: "react-client" };
 import {
-  routeRSCServerRequest,
-  RSCStaticRouter,
+  unstable_routeRSCServerRequest,
+  unstable_RSCStaticRouter,
 } from "react-router" assert { env: "react-client" };
 // @ts-expect-error
 import { createFromReadableStream } from "react-server-dom-parcel/client.edge" assert { env: "react-client" };
@@ -18,13 +18,13 @@ app.use("/client", express.static("dist/client"));
 
 app.use(
   createRequestListener(async (request) => {
-    return routeRSCServerRequest({
+    return unstable_routeRSCServerRequest({
       request,
       callServer,
       decode: createFromReadableStream,
       async renderHTML(getPayload) {
         return await renderHTMLToReadableStream(
-          React.createElement(RSCStaticRouter, { getPayload }),
+          React.createElement(unstable_RSCStaticRouter, { getPayload }),
           {
             bootstrapScriptContent: (
               callServer as unknown as { bootstrapScript: string }

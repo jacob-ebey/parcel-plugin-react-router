@@ -8,27 +8,27 @@ import {
   // @ts-expect-error
 } from "react-server-dom-parcel/server.edge";
 import {
-  type DecodeCallServerFunction,
-  type DecodeFormActionFunction,
-  matchRSCServerRequest,
+  type unstable_DecodeCallServerFunction,
+  type unstable_DecodeFormActionFunction,
+  unstable_matchRSCServerRequest,
 } from "react-router/rsc";
 
 import routes from "virtual:react-router/routes";
 
 import "./entry.browser.tsx";
 
-const decodeCallServer: DecodeCallServerFunction = async (actionId, reply) => {
+const decodeCallServer: unstable_DecodeCallServerFunction = async (actionId, reply) => {
   const args = await decodeReply(reply);
   const action = await loadServerAction(actionId);
   return action.bind(null, ...args);
 };
 
-const decodeFormAction: DecodeFormActionFunction = async (formData) => {
+const decodeFormAction: unstable_DecodeFormActionFunction = async (formData) => {
   return await decodeAction(formData);
 };
 
 export function callServer(request: Request) {
-  return matchRSCServerRequest({
+  return unstable_matchRSCServerRequest({
     decodeCallServer,
     decodeFormAction,
     request,

@@ -3,11 +3,11 @@
 import * as React from "react";
 import { hydrateRoot } from "react-dom/client";
 import {
-  createCallServer,
-  getServerStream,
-  RSCHydratedRouter,
+  unstable_createCallServer,
+  unstable_getServerStream,
+  unstable_RSCHydratedRouter,
 } from "react-router";
-import type { ServerPayload } from "react-router/rsc";
+import type { unstable_ServerPayload } from "react-router/rsc";
 import {
   createFromReadableStream,
   encodeReply,
@@ -15,22 +15,22 @@ import {
   // @ts-expect-error
 } from "react-server-dom-parcel/client";
 
-const callServer = createCallServer({
+const callServer = unstable_createCallServer({
   decode: (body) => createFromReadableStream(body, { callServer }),
   encodeAction: (args) => encodeReply(args),
 });
 
 setServerCallback(callServer);
 
-createFromReadableStream(getServerStream(), { assets: "manifest" }).then(
-  (payload: ServerPayload) => {
+createFromReadableStream(unstable_getServerStream(), { assets: "manifest" }).then(
+  (payload: unstable_ServerPayload) => {
     React.startTransition(() => {
       hydrateRoot(
         document,
         React.createElement(
           React.StrictMode,
           null,
-          React.createElement(RSCHydratedRouter, {
+          React.createElement(unstable_RSCHydratedRouter, {
             decode: (body) => createFromReadableStream(body),
             payload,
           }),
