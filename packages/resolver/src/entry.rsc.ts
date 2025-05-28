@@ -17,13 +17,18 @@ import routes from "virtual:react-router/routes";
 
 import "./entry.browser.tsx";
 
-const decodeCallServer: unstable_DecodeCallServerFunction = async (actionId, reply) => {
+const decodeCallServer: unstable_DecodeCallServerFunction = async (
+  actionId,
+  reply,
+) => {
   const args = await decodeReply(reply);
   const action = await loadServerAction(actionId);
   return action.bind(null, ...args);
 };
 
-const decodeFormAction: unstable_DecodeFormActionFunction = async (formData) => {
+const decodeFormAction: unstable_DecodeFormActionFunction = async (
+  formData,
+) => {
   return await decodeAction(formData);
 };
 

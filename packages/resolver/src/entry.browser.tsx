@@ -22,20 +22,20 @@ const callServer = unstable_createCallServer({
 
 setServerCallback(callServer);
 
-createFromReadableStream(unstable_getServerStream(), { assets: "manifest" }).then(
-  (payload: unstable_ServerPayload) => {
-    React.startTransition(() => {
-      hydrateRoot(
-        document,
-        React.createElement(
-          React.StrictMode,
-          null,
-          React.createElement(unstable_RSCHydratedRouter, {
-            decode: (body) => createFromReadableStream(body),
-            payload,
-          }),
-        ),
-      );
-    });
-  },
-);
+createFromReadableStream(unstable_getServerStream(), {
+  assets: "manifest",
+}).then((payload: unstable_ServerPayload) => {
+  React.startTransition(() => {
+    hydrateRoot(
+      document,
+      React.createElement(
+        React.StrictMode,
+        null,
+        React.createElement(unstable_RSCHydratedRouter, {
+          decode: (body) => createFromReadableStream(body),
+          payload,
+        }),
+      ),
+    );
+  });
+});
