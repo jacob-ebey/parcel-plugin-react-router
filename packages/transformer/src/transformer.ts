@@ -204,7 +204,7 @@ export default new Transformer({
         if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
           code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else if (staticExport === "ServerComponent") {
-          code += `export { ServerComponent as Component } from "${getServerModuleId()}";\n`;
+          code += `export { ServerComponent as default } from "${getServerModuleId()}";\n`;
         } else {
           code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
         }
@@ -214,8 +214,7 @@ export default new Transformer({
         if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
           code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else {
-          const reexportName = staticExport === "default" ? "Component" : null;
-          code += `export { ${staticExport}${reexportName ? ` as ${reexportName}` : ""} } from "${getServerModuleId()}";\n`;
+          code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
         }
       }
     }
