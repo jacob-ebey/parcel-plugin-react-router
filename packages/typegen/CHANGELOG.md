@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.1...parcel-resolver-react-router-typegen-experimental-v1.1.2) (2025-06-06)
+
+
+### Bug Fixes
+
+* migrate route `Component` export back to `default` ([#70](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/70)) ([4af3138](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/4af3138192f32a353847bbb0e00dc3e899f81912))
+
 ## [1.1.1](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.0...parcel-resolver-react-router-typegen-experimental-v1.1.1) (2025-06-05)
 
 
