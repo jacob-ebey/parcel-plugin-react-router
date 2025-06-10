@@ -3,10 +3,13 @@
   "scripts": {
     "build": "yarn workspace parcel-resolver-react-router-experimental run build && yarn workspace parcel-transformer-react-router-experimental run build && yarn workspace parcel-resolver-react-router-typegen-experimental run build",
     "watch": "yarn workspace parcel-resolver-react-router-experimental run build --watch & yarn workspace parcel-transformer-react-router-experimental run build --watch & yarn workspace parcel-resolver-react-router-typegen-experimental run build --watch",
-    "app:build": "parcel build",
     "app:clean": "rm -rf dist .parcel-cache .react-router .react-router-parcel",
-    "app:dev": "parcel",
-    "app:start": "node ./dist/server/server.js",
+    "app:express:dev": "yarn app:clean && parcel --target express",
+    "app:express:build": "parcel build --target express",
+    "app:express:start": "node ./dist/express/server/express.js",
+    "app:request-handler:dev": "yarn app:clean && parcel --target request-handler",
+    "app:request-handler:build": "parcel build --target request-handler",
+    "app:request-handler:start": "node ./dist/request-handler/server/request-handler.js",
     "test": "yarn test:vitest run && yarn test:playwright",
     "test:playwright": "playwright test",
     "test:vitest": "vitest",
@@ -14,8 +17,16 @@
     "format:check": "prettier --check ."
   },
   "targets": {
-    "server": {
-      "source": "app/server.ts",
+    "express": {
+      "source": "app/express.ts",
+      "context": "react-server",
+      "scopeHoist": false,
+      "includeNodeModules": {
+        "express": false
+      }
+    },
+    "request-handler": {
+      "source": "app/request-handler.ts",
       "context": "react-server",
       "scopeHoist": false,
       "includeNodeModules": {

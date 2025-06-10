@@ -28,10 +28,18 @@ export default new Resolver({
     await fsp.writeFile(
       ".react-router-parcel/types/+virtual-parcel.d.ts",
       `
+declare module "virtual:react-router/request-handler" {
+  const requestHandler: (request: Request) => Promise<Response>;
+  export default requestHandler;
+}
+
 declare module "virtual:react-router/express" {
   import { Express } from "express";
-  const express: Express;
-  export default express;
+  const createExpressApp: (options?: {
+    /** Parcel's \`distDir\` option. When using multiple targets without setting a custom \`distDir\`, this should be \`dist/\${targetName}\`. Defaults to \`dist\`. */
+    distDir?: string;
+  }) => Express;
+  export default createExpressApp;
 }
 
 declare module "virtual:react-router/routes" {
@@ -54,8 +62,12 @@ declare module "virtual:react-router/routes" {
         "./.react-router-parcel/entries/entry.rsc.ts",
       ),
       fsp.copyFile(
-        path.join(__dirname, "entry.ssr.tsx"),
-        "./.react-router-parcel/entries/entry.ssr.tsx",
+        path.join(__dirname, "entry.request-handler.ts"),
+        "./.react-router-parcel/entries/entry.request-handler.ts",
+      ),
+      fsp.copyFile(
+        path.join(__dirname, "entry.express.tsx"),
+        "./.react-router-parcel/entries/entry.express.tsx",
       ),
     ]);
 
@@ -149,8 +161,17 @@ declare module "virtual:react-router/routes" {
     return { appDirectory, routes, routesPath };
   },
   async resolve({ config, specifier, options }) {
+    if (specifier === "virtual:react-router/request-handler") {
+      const filePath = path.resolve(__dirname, "./entry.request-handler.ts");
+      const code = await fsp.readFile(filePath, "utf-8");
+      return {
+        filePath,
+        code,
+      };
+    }
+
     if (specifier === "virtual:react-router/express") {
-      const filePath = path.resolve(__dirname, "./entry.ssr.tsx");
+      const filePath = path.resolve(__dirname, "./entry.express.tsx");
       const code = await fsp.readFile(filePath, "utf-8");
       return {
         filePath,
