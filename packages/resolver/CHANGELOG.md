@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.2...parcel-resolver-react-router-experimental-v1.1.3) (2025-06-13)
+
+
+### Bug Fixes
+
+* add `virtual:react-router/request-handler` ([#72](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/72)) ([f1ffc85](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f1ffc854164e54f9fcb8df6c67272847ce468977))
+* make `virtual:react-router/express` export a function with options, add support for custom `distDir` ([f1ffc85](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f1ffc854164e54f9fcb8df6c67272847ce468977))
+
 ## [1.1.2](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.1...parcel-resolver-react-router-experimental-v1.1.2) (2025-06-06)
 
 
