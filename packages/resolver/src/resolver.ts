@@ -43,8 +43,8 @@ declare module "virtual:react-router/express" {
 }
 
 declare module "virtual:react-router/routes" {
-  import { ServerRouteObject } from "react-router/rsc";
-  const routes: ServerRouteObject[];
+  import { unstable_ServerRouteObject } from "react-router/rsc";
+  const routes: unstable_ServerRouteObject[];
   export default routes;
 }`.trim(),
     );
