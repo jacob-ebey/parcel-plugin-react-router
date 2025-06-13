@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.3...parcel-resolver-react-router-experimental-v1.1.4) (2025-06-13)
+
+
+### Bug Fixes
+
+* add unstable prefix to `ServerRouteObject` type ([#74](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/74)) ([c85e7e0](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/c85e7e0dae7aa8149fdec92114a8770235383b7b))
+
 ## [1.1.3](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.2...parcel-resolver-react-router-experimental-v1.1.3) (2025-06-13)
 
 
