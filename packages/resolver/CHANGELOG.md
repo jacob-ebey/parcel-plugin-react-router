@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.5](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.4...parcel-resolver-react-router-experimental-v1.1.5) (2025-06-20)
+
+
+### Bug Fixes
+
+* provide default root ErrorBoundary ([#76](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/76)) ([5525e70](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/5525e70286b563ef2330ca6812ff334b424d1e74))
+* update to latest experimental: 0.0.0-experimental-4303fcb98 ([5525e70](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/5525e70286b563ef2330ca6812ff334b424d1e74))
+
 ## [1.1.4](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-experimental-v1.1.3...parcel-resolver-react-router-experimental-v1.1.4) (2025-06-13)
 
 
