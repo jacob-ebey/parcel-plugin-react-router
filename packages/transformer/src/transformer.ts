@@ -84,6 +84,9 @@ export default new Transformer({
     const isServerFirstRoute = staticExports.some(
       (staticExport) => staticExport === "ServerComponent",
     );
+    const needsDefaultRootErrorBoundary =
+      asset.query.get("root") === "true" &&
+      !staticExports.includes("ErrorBoundary");
 
     // TODO: Add sourcemaps.....
     // TODO: Maybe pass TSConfig in here?
@@ -115,6 +118,12 @@ export default new Transformer({
         } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
           content += `export { ${staticExport} } from "${getClientSourceModuleId()}";\n`;
         }
+      }
+
+      if (needsDefaultRootErrorBoundary) {
+        const hasRootLayout = staticExports.includes("Layout");
+        content += `import { UNSAFE_RSCDefaultRootErrorBoundary } from "react-router";\n`;
+        content += `export function ErrorBoundary() { return <UNSAFE_RSCDefaultRootErrorBoundary hasRootLayout={${hasRootLayout}} />; }\n`;
       }
 
       assets.push({
@@ -217,6 +226,10 @@ export default new Transformer({
           code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
         }
       }
+    }
+
+    if (needsDefaultRootErrorBoundary) {
+      code += `export { ErrorBoundary } from "${getClientModuleId()}";\n`;
     }
 
     asset.setCode(code);

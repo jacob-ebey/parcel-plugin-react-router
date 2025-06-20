@@ -200,7 +200,8 @@ declare module "virtual:react-router/routes" {
             path.relative(
               options.projectRoot,
               path.resolve(config.appDirectory, route.file),
-            ),
+            ) +
+            (route.id === "root" ? "?root=true" : ""),
         )}),`;
 
         code += `id: ${JSON.stringify(route.id || createRouteId(route.file, config.appDirectory))},`;

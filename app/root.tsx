@@ -32,6 +32,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   Client loader without server loader
                 </Link>
               </li>
+              <li>
+                <Link to="/missing-action">Missing action</Link>
+              </li>
             </ul>
           </nav>
         </header>
