@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.3...parcel-resolver-react-router-typegen-experimental-v1.1.4) (2025-06-24)
+
+
+### Bug Fixes
+
+* migrate "react-router/rsc" imports to "react-router" ([#78](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/78)) ([8a86b9f](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8a86b9f3403bef52c8753bf5bbeee4d50f0cbfbe))
+* update to latest experimental - 0.0.0-experimental-7a7fadb20 ([8a86b9f](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8a86b9f3403bef52c8753bf5bbeee4d50f0cbfbe))
+
 ## [1.1.3](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.2...parcel-resolver-react-router-typegen-experimental-v1.1.3) (2025-06-20)
 
 
