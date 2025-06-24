@@ -3,11 +3,11 @@
 import * as React from "react";
 import { hydrateRoot } from "react-dom/client";
 import {
+  type unstable_ServerPayload,
   unstable_createCallServer,
   unstable_getServerStream,
   unstable_RSCHydratedRouter,
 } from "react-router";
-import type { unstable_ServerPayload } from "react-router/rsc";
 import {
   createFromReadableStream,
   encodeReply,

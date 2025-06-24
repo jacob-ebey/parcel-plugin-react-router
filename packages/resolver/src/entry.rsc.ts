@@ -11,7 +11,7 @@ import {
   type unstable_DecodeCallServerFunction,
   type unstable_DecodeFormActionFunction,
   unstable_matchRSCServerRequest,
-} from "react-router/rsc";
+} from "react-router";
 
 import routes from "virtual:react-router/routes";
 
