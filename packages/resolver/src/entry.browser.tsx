@@ -3,9 +3,9 @@
 import * as React from "react";
 import { hydrateRoot } from "react-dom/client";
 import {
-  type unstable_ServerPayload as ServerPayload,
+  type unstable_RSCPayload as RSCPayload,
   unstable_createCallServer as createCallServer,
-  unstable_getServerStream as getServerStream,
+  unstable_getRSCStream as getRSCStream,
   unstable_RSCHydratedRouter as RSCHydratedRouter,
 } from "react-router";
 import {
@@ -22,7 +22,7 @@ setServerCallback(
   }),
 );
 
-createFromReadableStream(getServerStream()).then((payload: ServerPayload) => {
+createFromReadableStream(getRSCStream()).then((payload: RSCPayload) => {
   React.startTransition(() => {
     hydrateRoot(
       document,
