@@ -22,9 +22,9 @@
     "@parcel/plugin": "^2.15.0"
   },
   "devDependencies": {
-    "@react-router/dev": "0.0.0-experimental-7a7fadb20",
+    "@react-router/dev": "0.0.0-experimental-bd40a0745",
     "execa": "^9.5.2",
-    "react-router": "0.0.0-experimental-7a7fadb20",
+    "react-router": "0.0.0-experimental-bd40a0745",
     "tsup": "^8.4.0"
   },
   "engines": {
