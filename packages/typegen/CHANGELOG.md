@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.4...parcel-resolver-react-router-typegen-experimental-v1.1.5) (2025-06-26)
+
+
+### Bug Fixes
+
+* update to 0.0.0-experimental-bd40a0745 ([#80](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/80)) ([54bb4d2](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/54bb4d2ec6d763c0d06173e23a6a048a0befa7c3))
+
 ## [1.1.4](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.3...parcel-resolver-react-router-typegen-experimental-v1.1.4) (2025-06-24)
 
 
