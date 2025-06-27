@@ -1,6 +1,6 @@
 {
-  "packages/config": "1.0.24",
-  "packages/resolver": "1.1.8",
-  "packages/typegen": "1.1.6",
-  "packages/transformer": "1.1.6"
+  "packages/config": "1.0.25",
+  "packages/resolver": "1.1.9",
+  "packages/typegen": "1.1.7",
+  "packages/transformer": "1.1.7"
 }
