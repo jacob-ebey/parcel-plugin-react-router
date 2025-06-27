@@ -1,6 +1,7 @@
 "use server-entry";
 
 import {
+  createTemporaryReferenceSet,
   decodeAction,
   decodeReply,
   loadServerAction,
@@ -15,6 +16,7 @@ import "./entry.browser.tsx";
 
 export function fetchServer(request: Request) {
   return matchRSCServerRequest({
+    createTemporaryReferenceSet,
     decodeAction,
     decodeReply,
     loadServerAction,

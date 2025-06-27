@@ -39,7 +39,7 @@
     "@types/react-dom": "^19.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "0.0.0-experimental-14b5858e8",
+    "react-router": "0.0.0-experimental-23decd7bc",
     "tsup": "^8.4.0"
   },
   "engines": {
