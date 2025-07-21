@@ -7,7 +7,7 @@ import * as babel from "./babel.ts";
 
 export const removeExports = (
   ast: babel.ParseResult<babel.File>,
-  exportsToRemove: string[],
+  exportsToRemove: readonly string[],
 ) => {
   let previouslyReferencedIdentifiers = findReferencedIdentifiers(ast);
   let exportsFiltered = false;
