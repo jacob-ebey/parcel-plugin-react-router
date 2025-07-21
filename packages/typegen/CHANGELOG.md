@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.2.0](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.8...parcel-resolver-react-router-typegen-experimental-v1.2.0) (2025-07-21)
+
+
+### Features
+
+* update to `0.0.0-experimental-e7eb25a7b` (`unstable_` prefixed APIs) ([#66](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/66)) ([fb9d1b6](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/fb9d1b6420cd837dc359e972b7f8ea19dee08807))
+
+
+### Bug Fixes
+
+* add progressive server actions OOTB ([#18](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/18)) ([b26d6a3](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/b26d6a3c78c3602521610fe054619fee056c3d48))
+* adopt generateResponse API in RR to support middleware ([#32](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/32)) ([f1aac26](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/f1aac26d0d540d9240e53af2ca5555dc2dabf2c5))
+* build things ([#6](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/6)) ([8dba8ef](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8dba8efcd4209f8e69fa763a82ecc0892cd0ea22))
+* bump parcel to 2.15.0 ([#38](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/38)) ([74e6561](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/74e6561c87bac1bdbc314f32c80cbba0207cda09))
+* bundle execa so we can be CJS comaptible ([#21](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/21)) ([9dfbe6d](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/9dfbe6d4fad8e12efa0940076a04bd9859cf7bb6))
+* improve typegen stability ([#36](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/36)) ([12617ef](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/12617ef6f708fe83879abd0138168cb6f755a126))
+* migrate "react-router/rsc" imports to "react-router" ([#78](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/78)) ([8a86b9f](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8a86b9f3403bef52c8753bf5bbeee4d50f0cbfbe))
+* migrate route `Component` export back to `default` ([#70](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/70)) ([4af3138](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/4af3138192f32a353847bbb0e00dc3e899f81912))
+* migrate route `default` property to `Component` ([#68](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/68)) ([9ab1d07](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/9ab1d07d13e0022f626e6046364e482e451744c2))
+* one server component, all server component ([b3ef593](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/b3ef593a5ab6a2ecb0d70b89ed552fdc59227859))
+* provide default root ErrorBoundary ([#76](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/76)) ([5525e70](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/5525e70286b563ef2330ca6812ff334b424d1e74))
+* publish CJS modules to remove parcel warnings ([#14](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/14)) ([07f2fc0](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/07f2fc0062463cd50ca8b53f34d9e6bf89ddac1a))
+* remove logs and add react import ([#12](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/12)) ([8e2f4d1](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8e2f4d1cac8a7f8ec8b094ae39e52dd9c0351ae2))
+* support for monorepo ([b26d6a3](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/b26d6a3c78c3602521610fe054619fee056c3d48))
+* update to 0.0.0-experimental-14b5858e8 ([#82](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/82)) ([a1ae00b](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/a1ae00b284f0651fb3125a9d5e8f6f894e4eb338))
+* update to 0.0.0-experimental-bd40a0745 ([#80](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/80)) ([54bb4d2](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/54bb4d2ec6d763c0d06173e23a6a048a0befa7c3))
+* update to latest experimental - 0.0.0-experimental-7a7fadb20 ([8a86b9f](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8a86b9f3403bef52c8753bf5bbeee4d50f0cbfbe))
+* update to latest experimental: 0.0.0-experimental-4303fcb98 ([5525e70](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/5525e70286b563ef2330ca6812ff334b424d1e74))
+* Update to latest RR version and API ([#43](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/43)) ([2450880](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/2450880721922a7330c267fed5f7ee2ce85d0446))
+* update to react-router 7.7.0 ([#86](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/86)) ([1a5632d](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/1a5632d2675ab49c19079c992b15c7addd9af166))
+* Update to use the latest RR experimental with updated export names ([#25](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/25)) ([e9d4191](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/e9d41915990fba2b067d5926e0d92b2f4adc5524))
+* update version and add temporary references ([#84](https://github.com/jacob-ebey/parcel-plugin-react-router/issues/84)) ([8b23b8e](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/8b23b8e0ca3fed34e7a90909ce6609f35ea84d10))
+* use React. methods instead of JSX syntax to avoid a React warning ([07f2fc0](https://github.com/jacob-ebey/parcel-plugin-react-router/commit/07f2fc0062463cd50ca8b53f34d9e6bf89ddac1a))
+
 ## [1.1.8](https://github.com/jacob-ebey/parcel-plugin-react-router/compare/parcel-resolver-react-router-typegen-experimental-v1.1.7...parcel-resolver-react-router-typegen-experimental-v1.1.8) (2025-07-21)
 
 
