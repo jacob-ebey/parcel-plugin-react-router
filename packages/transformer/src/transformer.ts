@@ -12,37 +12,19 @@ const SERVER_ONLY_ROUTE_EXPORTS = [
   "unstable_middleware",
   "headers",
   "ServerComponent",
-];
+] as const;
 
-type WithPropsHocName =
-  | "UNSAFE_withComponentProps"
-  | "UNSAFE_withErrorBoundaryProps"
-  | "UNSAFE_withHydrateFallbackProps";
-
-const COMPONENT_EXPORTS_WITH_PROPS_HOC = [
+const COMPONENT_EXPORTS = [
   "default",
   "ErrorBoundary",
   "HydrateFallback",
-] as const;
-type ComponentExportWithPropsHoc =
-  (typeof COMPONENT_EXPORTS_WITH_PROPS_HOC)[number];
-const COMPONENT_EXPORTS_WITH_PROPS_HOC_SET = new Set(
-  COMPONENT_EXPORTS_WITH_PROPS_HOC,
-);
-function isComponentExportWithPropsHoc(
-  name: string,
-): name is ComponentExportWithPropsHoc {
-  return COMPONENT_EXPORTS_WITH_PROPS_HOC_SET.has(
-    name as ComponentExportWithPropsHoc,
-  );
-}
-
-const COMPONENT_EXPORTS = [
-  ...COMPONENT_EXPORTS_WITH_PROPS_HOC,
   "Layout",
 ] as const;
 type ComponentExport = (typeof COMPONENT_EXPORTS)[number];
 const COMPONENT_EXPORTS_SET = new Set(COMPONENT_EXPORTS);
+function isComponentExport(name: string): name is ComponentExport {
+  return COMPONENT_EXPORTS_SET.has(name as ComponentExport);
+}
 
 const CLIENT_NON_COMPONENT_EXPORTS = [
   "clientAction",
@@ -52,12 +34,19 @@ const CLIENT_NON_COMPONENT_EXPORTS = [
   "meta",
   "links",
   "shouldRevalidate",
-];
+] as const;
+type ClientNonComponentExport = (typeof CLIENT_NON_COMPONENT_EXPORTS)[number];
 const CLIENT_NON_COMPONENT_EXPORTS_SET = new Set(CLIENT_NON_COMPONENT_EXPORTS);
+function isClientNonComponentExport(
+  name: string,
+): name is ClientNonComponentExport {
+  return CLIENT_NON_COMPONENT_EXPORTS_SET.has(name as ClientNonComponentExport);
+}
+
 const CLIENT_ROUTE_EXPORTS = [
   ...CLIENT_NON_COMPONENT_EXPORTS,
   ...COMPONENT_EXPORTS,
-];
+] as const;
 
 const parseExports = async (filePath: string, source: string) => {
   const parsed = await oxc.parseAsync(filePath, source);
@@ -104,18 +93,9 @@ export default new Transformer({
 
       let content = '"use client";\n';
       for (const staticExport of staticExports) {
-        if (
-          !isServerFirstRoute &&
-          isComponentExportWithPropsHoc(staticExport)
-        ) {
-          const isDefault = staticExport === "default";
-          const componentName = isDefault ? "Component" : staticExport;
-          const withPropsHocName: WithPropsHocName = `UNSAFE_with${componentName}Props`;
-          content += `import { ${withPropsHocName} } from "react-router";\n`;
-          content += `import { ${staticExport} as Source${componentName} } from "${getClientSourceModuleId()}";\n`;
-          content += `const Decorated${componentName} = UNSAFE_with${componentName}Props(Source${componentName});\n`;
-          content += `export ${isDefault ? "default" : `const ${staticExport} =`} Decorated${componentName};\n`;
-        } else if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+        const isClientComponent =
+          !isServerFirstRoute && isComponentExport(staticExport);
+        if (isClientComponent || isClientNonComponentExport(staticExport)) {
           content += `export { ${staticExport} } from "${getClientSourceModuleId()}";\n`;
         }
       }
@@ -180,19 +160,17 @@ export default new Transformer({
       let content = babel.generate(serverRouteModuleAst).code;
       if (!isServerFirstRoute) {
         for (const staticExport of staticExports) {
-          if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+          if (isClientNonComponentExport(staticExport)) {
             content += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
-          } else if (
-            COMPONENT_EXPORTS_SET.has(staticExport as ComponentExport)
-          ) {
+          } else if (isComponentExport(staticExport)) {
             // Wrap all route-level client components in server components when
             // it's not a server-first route so Parcel can use the server
             // component to inject CSS resources into the JSX
             const isDefault = staticExport === "default";
             const componentName = isDefault ? "Component" : staticExport;
             content += `import { ${staticExport} as Client${componentName} } from "${getClientModuleId()}";\n`;
-            content += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}() {
-              return <Client${componentName} />;
+            content += `export ${isDefault ? "default" : `const ${staticExport} =`} function ${componentName}(props) {
+              return <Client${componentName} {...props} />;
             }\n`;
           }
         }
@@ -210,7 +188,7 @@ export default new Transformer({
     let code = "";
     if (isServerFirstRoute) {
       for (const staticExport of staticExports) {
-        if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+        if (isClientNonComponentExport(staticExport)) {
           code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else if (staticExport === "ServerComponent") {
           code += `export { ServerComponent as default } from "${getServerModuleId()}";\n`;
@@ -220,7 +198,7 @@ export default new Transformer({
       }
     } else {
       for (const staticExport of staticExports) {
-        if (CLIENT_NON_COMPONENT_EXPORTS_SET.has(staticExport)) {
+        if (isClientNonComponentExport(staticExport)) {
           code += `export { ${staticExport} } from "${getClientModuleId()}";\n`;
         } else {
           code += `export { ${staticExport} } from "${getServerModuleId()}";\n`;
