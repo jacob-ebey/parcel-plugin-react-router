@@ -724,11 +724,6 @@
   resolved "https://registry.yarnpkg.com/@mjackson/node-fetch-server/-/node-fetch-server-0.2.0.tgz#577c0c25d8aae9f69a97738b7b0d03d1471cdc49"
   integrity sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==
 
-"@mjackson/node-fetch-server@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@mjackson/node-fetch-server/-/node-fetch-server-0.6.1.tgz#a576ba088093fa978dca2cb448924bf9b172bd21"
-  integrity sha512-9ZJnk/DJjt805uv5PPv11haJIW+HHf3YEEyVXv+8iLQxLD/iXA68FH220XoiTPBC4gCg5q+IMadDw8qPqlA5wg==
-
 "@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@msgpackr-extract/msgpackr-extract-darwin-arm64/-/msgpackr-extract-darwin-arm64-3.0.3.tgz#9edec61b22c3082018a79f6d1c30289ddf3d9d11"
@@ -1844,6 +1839,11 @@
   integrity sha512-PTl4C+QjWsbTfp+9mybOzIH10ZM/pjZrAlcoxc/KGYxcfWDEe2GDFFBQN6nGZgJe/0SwSjHsVwqo2haMKgTbvQ==
   dependencies:
     "@mjackson/node-fetch-server" "^0.2.0"
+
+"@remix-run/node-fetch-server@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/node-fetch-server/-/node-fetch-server-0.8.0.tgz#e95aa0d205acc1dbe1e408667a43c654248d78dd"
+  integrity sha512-8/sKegb4HrM6IdcQeU0KPhj9VOHm5SUqswJDHuMCS3mwbr/NRx078QDbySmn0xslahvvZoOENd7EnK40kWKxkg==
 
 "@rollup/rollup-android-arm-eabi@4.40.0":
   version "4.40.0"
